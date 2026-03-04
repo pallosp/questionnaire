@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint && stylelint 'src/**/*.css'",
+    "lint:fix": "eslint --fix && stylelint 'src/**/*.css' --fix",
     "format": "prettier --write '**/*.{ts,tsx,mjs,md,css}'",
     "prepare": "husky"
   },
@@ -26,12 +27,15 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.3.2",
     "prettier": "^3.8.1",
+    "stylelint": "^17.4.0",
+    "stylelint-config-clean-order": "^8.0.1",
+    "stylelint-config-standard": "^40.0.0",
+    "stylelint-order": "^7.0.1",
     "typescript": "^5"
   },
   "lint-staged": {
-    "*.{ts,tsx,mjs,md,css}": [
-      "eslint --fix",
-      "prettier --write"
-    ]
+    "*.{js,mjs,ts,tsx}": "eslint --fix",
+    "*.css": "stylelint --fix",
+    "*": "prettier --write --ignore-unknown"
   }
 }
