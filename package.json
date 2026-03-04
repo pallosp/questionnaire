@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "format": "prettier --write '**/*.{ts,tsx,mjs,md,css}'"
+    "format": "prettier --write '**/*.{ts,tsx,mjs,md,css}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "16.1.6",
@@ -21,7 +22,15 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
     "prettier": "^3.8.1",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,mjs,md,css}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
