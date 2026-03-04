@@ -4,7 +4,9 @@
   --gray-50: rgba(0, 0, 0, 0.5);
   --gray-80: rgba(0, 0, 0, 0.8);
   --gray-90: rgba(0, 0, 0, 0.9);
+
   --primary-50: #ff0;
+
   --background: linear-gradient(to right, var(--gray-30), var(--gray-50));
   --foreground: #171717;
 }
@@ -16,9 +18,12 @@ body {
 }
 
 body {
+  --body-font: var(--font-ibm-plex-serif), serif;
+  --title-font: var(--font-sansation), sans-serif;
+
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--body-font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -32,4 +37,22 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.text-sm {
+  font: 0.75rem/1.4 var(--title-font);
+}
+
+.text-md {
+  font: 0.875rem/1.4 var(--body-font);
+}
+
+.text-xl {
+  font: 2rem/1.2 var(--title-font);
+  letter-spacing: -3%;
+}
+
+.text-xxl {
+  font: 3.5rem/1.2 var(--title-font);
+  letter-spacing: -3%;
 }
