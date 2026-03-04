@@ -1,4 +1,9 @@
 :root {
+  --gray-20: rgba(0, 0, 0, 0.2);
+  --gray-50: rgba(0, 0, 0, 0.5);
+  --gray-80: rgba(0, 0, 0, 0.8);
+  --gray-90: rgba(0, 0, 0, 0.9);
+  --primary-50: #ff0;
   --background: #ffffff;
   --foreground: #171717;
 }
