@@ -5,7 +5,7 @@
   --gray-80: rgba(0, 0, 0, 0.8);
   --gray-90: rgba(0, 0, 0, 0.9);
   --primary-50: #ff0;
-  --background: linear-gradient(to right, var(--gray-50), var(--gray-30));
+  --background: linear-gradient(to right, var(--gray-30), var(--gray-50));
   --foreground: #171717;
 }
 
