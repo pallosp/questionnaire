@@ -1,7 +1,4 @@
 .page {
-  --background: #fafafa;
-  --foreground: #fff;
-
   --text-primary: #000;
   --text-secondary: #666;
 
@@ -25,7 +22,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  background-color: var(--foreground);
+  background-color: var(--background);
   padding: 120px 60px;
 }
 
