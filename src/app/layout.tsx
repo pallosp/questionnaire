@@ -37,6 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <link rel="icon" href="/images/logo.svg" />
       <body className={`${ibmPlexSerif.variable} ${sansation.variable}`}>
         {children}
       </body>
