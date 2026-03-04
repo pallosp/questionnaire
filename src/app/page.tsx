@@ -1,5 +1,8 @@
 import Image from 'next/image';
 
+import { IconLinkButton } from '@/components/button/icon-link-button';
+import { Card } from '@/components/card/card';
+
 import styles from './page.module.css';
 
 export default function Home() {
@@ -15,12 +18,19 @@ export default function Home() {
           priority
         />
 
-        <div>
-          <div className="text-sm">small</div>
-          <div className="text-md">medium</div>
-          <div className="text-xl">large</div>
-          <div className="text-xxl">extra large</div>
-        </div>
+        <Card
+          className={styles['tech-card']}
+          title="Tech"
+          description="I'm a technical person and I like to work on challenging projects."
+          footer="10 Question(s)"
+          button={
+            <IconLinkButton
+              icon="keyboard_double_arrow_right"
+              href="https://example.com"
+              ariaLabel="View questionnaire"
+            />
+          }
+        />
 
         <div className={styles.intro}>
           <h1>To get started, edit the page.tsx file.</h1>
