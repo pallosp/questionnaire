@@ -1,9 +1,13 @@
+@import url('material-symbols/outlined.css');
+
 :root {
   --gray-20: rgb(0 0 0 / 20%);
   --gray-30: rgb(0 0 0 / 30%);
   --gray-50: rgb(0 0 0 / 50%);
+  --gray-60: rgb(0 0 0 / 60%);
   --gray-80: rgb(0 0 0 / 80%);
   --gray-90: rgb(0 0 0 / 90%);
+  --primary-20: #ff9;
   --primary-50: #ff0;
   --background: linear-gradient(to right, var(--gray-30), var(--gray-50));
   --foreground: #171717;
