@@ -6,6 +6,7 @@ import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
+import { BackButton } from './back-button';
 import { RatingGroup } from './rating-group';
 
 interface RawPageProps {
@@ -81,6 +82,10 @@ export default async function QuestionPage({ params }: RawPageProps) {
   return (
     <>
       <Logo variant="white" />
+      <BackButton
+        questionnaireId={context.questionnaire.id}
+        currentQuestionNumber={context.questionNumber}
+      />
       <p>{supTitle}</p>
       <h1>{context.question.question}</h1>
       <RatingGroup
