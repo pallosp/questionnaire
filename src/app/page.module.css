@@ -1,4 +1,7 @@
 .page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: var(--background);
 }
 
@@ -14,7 +17,8 @@
 }
 
 .main {
-  padding: 32px;
+  flex: 1;
+  padding: var(--page-padding);
 }
 
 .logo {
@@ -54,4 +58,27 @@
 .card {
   width: 100%;
   max-width: 430px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: fit-content;
+
+  /* TODO: Should the horizontal padding be less than the page padding on wide
+     screens, as in Figma? */
+  padding: 32px var(--page-padding);
+
+  color: white;
+
+  background-color: #1e1e1f;
+
+  @media (width >= 640px) {
+    flex-direction: row;
+    gap: 80px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
 }

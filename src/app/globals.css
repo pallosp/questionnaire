@@ -11,6 +11,15 @@
   --primary-50: #ff0;
   --background: linear-gradient(to right, var(--gray-30), var(--gray-50));
   --foreground: var(--gray-80);
+  --page-padding: 32px;
+
+  @media (width >= 640px) {
+    --page-padding: 44px;
+  }
+
+  @media (width >= 1280px) {
+    --page-padding: 64px;
+  }
 }
 
 html,
@@ -41,6 +50,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .text-sm {
