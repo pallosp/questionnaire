@@ -7,6 +7,7 @@ import { getConfig } from '@/lib/config';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
 import { BackButton } from './back-button';
+import { Background } from './background';
 import { RatingGroup } from './rating-group';
 
 interface RawPageProps {
@@ -81,6 +82,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
 
   return (
     <>
+      <Background variant={context.questionnaire['background-type']} />
       <Logo variant="white" />
       <BackButton
         questionnaireId={context.questionnaire.id}

@@ -13,7 +13,7 @@
   --foreground: var(--gray-80);
   --page-padding: 32px;
 
-  @media (width >= 640px) {
+  @media (width >= 768px) {
     --page-padding: 44px;
   }
 

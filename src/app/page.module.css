@@ -17,7 +17,7 @@
   gap: 16px;
   justify-content: start;
 
-  @media (width >= 640px) {
+  @media (width >= 768px) {
     grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
     gap: 20px;
   }
