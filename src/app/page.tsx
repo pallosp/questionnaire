@@ -2,23 +2,11 @@ import Image from 'next/image';
 
 import { IconLinkButton } from '@/components/button/icon-link-button';
 import { Card } from '@/components/card/card';
+import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
 import { QuestionnaireConfig } from '@/types/config';
 
 import styles from './page.module.css';
-
-function Logo() {
-  return (
-    <Image
-      className={styles.logo}
-      src="/images/logo-black.svg"
-      alt="Logo"
-      width={40}
-      height={52}
-      priority
-    />
-  );
-}
 
 function Title({ html }: { html: string }) {
   // TODO: Should the title be sanitized, e.g. with DOMPurify?
@@ -63,7 +51,7 @@ export default async function Home() {
 
   return (
     <>
-      <Logo />
+      <Logo variant="black" />
       <Title html={config.homepage.title} />
       <Description text={config.homepage.description} />
       <Questionnaires items={config.questionnaires} />

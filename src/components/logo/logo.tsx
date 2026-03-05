@@ -1,0 +1,21 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
+import styles from './logo.module.css';
+
+interface LogoProps {
+  variant: 'black' | 'white';
+}
+
+export function Logo({ variant }: LogoProps) {
+  const logoSrc =
+    variant === 'white' ? '/images/logo-white.svg' : '/images/logo-black.svg';
+
+  return (
+    <div className={styles.container}>
+      <Link href="/">
+        <Image src={logoSrc} alt="Logo" width={40} height={52} priority />
+      </Link>
+    </div>
+  );
+}

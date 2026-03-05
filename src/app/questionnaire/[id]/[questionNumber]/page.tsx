@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { z } from 'zod';
 
+import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
@@ -79,6 +80,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
 
   return (
     <>
+      <Logo variant="white" />
       <p>{supTitle}</p>
       <h1>{context.question.question}</h1>
       <RatingGroup
