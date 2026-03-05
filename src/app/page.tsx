@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 import { IconLinkButton } from '@/components/button/icon-link-button';
 import { Card } from '@/components/card/card';
 import { Logo } from '@/components/logo/logo';
