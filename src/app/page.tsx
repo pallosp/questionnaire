@@ -19,7 +19,7 @@ export default function Home() {
         />
 
         <Card
-          className={styles['tech-card']}
+          style={{ '--card-bg': '#c8fffd' } as React.CSSProperties}
           title="Tech"
           description="I'm a technical person and I like to work on challenging projects."
           footer="10 Question(s)"

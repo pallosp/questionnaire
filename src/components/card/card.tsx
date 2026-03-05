@@ -4,8 +4,8 @@ interface CardProps {
   title: string;
   description?: string;
   footer?: string;
-  className?: string;
   button?: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
 /**
@@ -20,11 +20,11 @@ export const Card = ({
   title,
   description,
   footer,
-  className,
   button,
+  style,
 }: CardProps) => {
   return (
-    <section className={`${styles.card} ${className}`.trim()}>
+    <section className={styles.card} style={style}>
       <h2 className={`${styles.title} text-xl`}>{title}</h2>
       <p className={`${styles.description} text-md`}>{description}</p>
       <footer className={styles.footer}>
