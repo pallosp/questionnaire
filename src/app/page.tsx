@@ -2,12 +2,8 @@ import Image from 'next/image';
 
 import { IconLinkButton } from '@/components/button/icon-link-button';
 import { Card } from '@/components/card/card';
-import {
-  Config,
-  FooterConfig,
-  FooterLink,
-  QuestionnaireConfig,
-} from '@/types/config';
+import { getConfig } from '@/lib/config';
+import { QuestionnaireConfig } from '@/types/config';
 
 import styles from './page.module.css';
 
@@ -62,47 +58,15 @@ function Questionnaires({ items }: { items: QuestionnaireConfig[] }) {
   );
 }
 
-function FooterLinks({ links }: { links: FooterLink[] }) {
-  return (
-    <div className={styles.links}>
-      {links.map((link, index) => (
-        <span key={index}>
-          {index > 0 && ' | '}
-          <a href={link.url}>{link.name}</a>
-        </span>
-      ))}
-    </div>
-  );
-}
-
-function Footer({ copyright, links }: FooterConfig) {
-  return (
-    <footer className={styles.footer}>
-      <div className={styles.copyright}>{copyright}</div>
-      <FooterLinks links={links} />
-    </footer>
-  );
-}
-
 export default async function Home() {
-  const response = await fetch('http://localhost:3000/api/test-config.json');
-  const config: Config = await response.json();
+  const config = await getConfig();
 
   return (
-    <div className={styles.page}>
-      <div className={styles['header-block']} />
-
-      <main className={styles.main}>
-        <Logo />
-        <Title html={config.homepage.title} />
-        <Description text={config.homepage.description} />
-        <Questionnaires items={config.questionnaires} />
-      </main>
-
-      <Footer
-        copyright={config.questionnaire.footer.copyright}
-        links={config.questionnaire.footer.links}
-      />
-    </div>
+    <>
+      <Logo />
+      <Title html={config.homepage.title} />
+      <Description text={config.homepage.description} />
+      <Questionnaires items={config.questionnaires} />
+    </>
   );
 }

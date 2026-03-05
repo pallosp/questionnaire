@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { z } from 'zod';
 
+import { getConfig } from '@/lib/config';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
 import { RatingGroup } from './rating-group';
@@ -22,14 +23,6 @@ interface QuestionContext {
   questionnaire: QuestionnaireConfig;
   questionNumber: number;
   question: Question;
-}
-
-async function getConfig(): Promise<Config> {
-  const response = await fetch('http://localhost:3000/api/test-config.json');
-  if (!response.ok) {
-    throw new Error('Failed to fetch config');
-  }
-  return response.json();
 }
 
 function getQuestionContext(
@@ -85,7 +78,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
     .replace('{total}', context.questionnaire.questions.length.toString());
 
   return (
-    <main>
+    <>
       <p>{supTitle}</p>
       <h1>{context.question.question}</h1>
       <RatingGroup
@@ -93,6 +86,6 @@ export default async function QuestionPage({ params }: RawPageProps) {
         maxScore={10}
         legend="Please indicate on a scale of 1 to 10 how much you agree with this statement."
       />
-    </main>
+    </>
   );
 }
