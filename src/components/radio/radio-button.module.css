@@ -1,0 +1,51 @@
+.label {
+  cursor: pointer;
+
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  color: white;
+
+  input {
+    --dot-size: 0;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+
+    appearance: none;
+    background: white;
+
+    /* dot */
+    &::after {
+      content: '';
+
+      display: block;
+
+      width: var(--dot-size);
+      height: var(--dot-size);
+      border-radius: 50%;
+
+      background: black;
+    }
+
+    &:checked {
+      --dot-size: 0.75rem;
+
+      background: var(--primary-50);
+    }
+  }
+
+  &:hover input:not(:checked) {
+    --dot-size: 0.5rem;
+
+    background: var(--primary-20);
+  }
+}
