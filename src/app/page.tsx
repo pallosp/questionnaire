@@ -2,10 +2,15 @@ import Image from 'next/image';
 
 import { IconLinkButton } from '@/components/button/icon-link-button';
 import { Card } from '@/components/card/card';
+import { Config } from '@/types/config';
 
 import styles from './page.module.css';
 
-export default function Home() {
+export default async function Home() {
+  const response = await fetch('http://localhost:3000/api/test-config.json');
+  const config: Config = await response.json();
+  console.log(config);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
