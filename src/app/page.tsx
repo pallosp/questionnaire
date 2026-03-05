@@ -50,7 +50,7 @@ function Questionnaires({ items }: { items: QuestionnaireConfig[] }) {
             button={
               <IconLinkButton
                 icon="keyboard_double_arrow_right"
-                href={`/questionnaire/${q.id}`}
+                href={`/questionnaire/${q.id}/1`}
                 ariaLabel="View questionnaire"
               />
             }
