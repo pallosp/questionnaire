@@ -21,6 +21,11 @@ const sansation = localFont({
       weight: '400',
       style: 'normal',
     },
+    {
+      path: '../../public/fonts/Sansation/Sansation-Bold.ttf',
+      weight: '700',
+      style: 'normal',
+    },
   ],
   variable: '--font-sansation',
 });

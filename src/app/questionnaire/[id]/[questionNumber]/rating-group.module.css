@@ -1,0 +1,78 @@
+.group {
+  --button-gap: 8px;
+
+  border: none;
+}
+
+.legend {
+  margin-bottom: 24px;
+  color: white;
+}
+
+.radio {
+  cursor: pointer;
+
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  appearance: none;
+  background: white;
+
+  /* Extend the click target to the gap to prevent flickering */
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0 calc(-1 * var(--button-gap)) 0 0;
+  }
+
+  /* Rating inside the radio button */
+  &::after {
+    content: attr(value);
+    font:
+      bold 20px var(--title-font),
+      sans-serif;
+    color: var(--gray-90);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--gray-50);
+  }
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--button-gap);
+  align-items: center;
+
+  /* When the group is not hovered, highlight up to the selected rating. */
+  &:not(:hover) .radio {
+    &:checked,
+    &:has(~ :checked) {
+      background: var(--primary-50);
+
+      &::after {
+        color: var(--gray-80);
+      }
+    }
+  }
+
+  /* When the group is hovered, highlight up to the hovered rating. */
+  &:hover .radio {
+    &:hover,
+    &:has(~ :hover) {
+      background: var(--primary-50);
+
+      &::after {
+        color: var(--gray-80);
+      }
+    }
+  }
+}

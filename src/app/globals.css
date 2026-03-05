@@ -60,6 +60,10 @@ a {
   font: 0.875rem/1.4 var(--body-font);
 }
 
+.text-lg {
+  font: 1.25rem/1.2 var(--title-font);
+}
+
 .text-xl {
   font: 2rem/1.2 var(--title-font);
   letter-spacing: -3%;

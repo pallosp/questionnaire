@@ -4,6 +4,8 @@ import { z } from 'zod';
 
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
+import { RatingGroup } from './rating-group';
+
 interface RawPageProps {
   params: Promise<{
     id: string;
@@ -86,6 +88,11 @@ export default async function QuestionPage({ params }: RawPageProps) {
     <main>
       <p>{supTitle}</p>
       <h1>{context.question.question}</h1>
+      <RatingGroup
+        name="question-rating"
+        maxScore={10}
+        legend="Please indicate on a scale of 1 to 10 how much you agree with this statement."
+      />
     </main>
   );
 }
