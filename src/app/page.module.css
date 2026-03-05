@@ -75,6 +75,10 @@
 
   background-color: #1e1e1f;
 
+  & a:hover {
+    text-decoration: underline;
+  }
+
   @media (width >= 640px) {
     flex-direction: row;
     padding-top: 16px;
