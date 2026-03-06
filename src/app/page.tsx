@@ -10,14 +10,14 @@ function Title({ html }: { html: string }) {
   // TODO: Should the title be sanitized, e.g. with DOMPurify?
   return (
     <h1
-      className={`text-xxl ${styles.title}`}
+      className={`text-title-xxl ${styles.title}`}
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
 }
 
 function Description({ text }: { text: string }) {
-  return <p className={`text-md ${styles.description}`}>{text}</p>;
+  return <p className={`text-title-md ${styles.description}`}>{text}</p>;
 }
 
 function Questionnaires({ items }: { items: QuestionnaireConfig[] }) {

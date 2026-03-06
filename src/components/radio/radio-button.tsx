@@ -16,7 +16,7 @@ export const RadioButton = ({
   return (
     <label className={styles.label}>
       <input type="radio" name={name} value={value} checked={checked} />
-      <span className="text-md">{label}</span>
+      <span className="text-title-md">{label}</span>
     </label>
   );
 };

@@ -25,10 +25,10 @@ export const Card = ({
 }: CardProps) => {
   return (
     <section className={styles.card} style={style}>
-      <h2 className={`${styles.title} text-xl`}>{title}</h2>
-      <p className={`${styles.description} text-md`}>{description}</p>
+      <h2 className={`${styles.title} text-title-xl`}>{title}</h2>
+      <p className={`${styles.description} text-title-md`}>{description}</p>
       <footer className={styles.footer}>
-        <span className={'text-sm'}>{footer}</span>
+        <span className={'text-title-sm'}>{footer}</span>
         {button}
       </footer>
     </section>

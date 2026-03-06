@@ -52,24 +52,28 @@ a {
   text-decoration: none;
 }
 
-.text-sm {
-  font: 0.75rem/1.4 var(--title-font);
-}
-
-.text-md {
+.text-body {
   font: 0.875rem/1.4 var(--body-font);
 }
 
-.text-lg {
+.text-title-sm {
+  font: 0.75rem/1.4 var(--title-font);
+}
+
+.text-title-md {
+  font: 0.875rem/1.4 var(--title-font);
+}
+
+.text-title-lg {
   font: 1.25rem/1.2 var(--title-font);
 }
 
-.text-xl {
+.text-title-xl {
   font: 2rem/1.2 var(--title-font);
   letter-spacing: -3%;
 }
 
-.text-xxl {
+.text-title-xxl {
   font: 3.5rem/1.2 var(--title-font);
   letter-spacing: -3%;
 }

@@ -8,6 +8,7 @@ import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
 import { BackButton } from './back-button';
 import { Background } from './background';
+import styles from './page.module.css';
 import { RatingGroup } from './rating-group';
 
 interface RawPageProps {
@@ -88,13 +89,19 @@ export default async function QuestionPage({ params }: RawPageProps) {
         questionnaireId={context.questionnaire.id}
         currentQuestionNumber={context.questionNumber}
       />
-      <p>{supTitle}</p>
-      <h1>{context.question.question}</h1>
-      <RatingGroup
-        name="question-rating"
-        maxScore={10}
-        legend="Please indicate on a scale of 1 to 10 how much you agree with this statement."
-      />
+      <main className={styles.container}>
+        <p className={`${styles['sup-title']} text-title-md`}>{supTitle}</p>
+        <h1 className={`${styles.title} text-title-xl`}>
+          {context.question.question}
+        </h1>
+        <div className={styles.rating}>
+          <RatingGroup
+            name="question-rating"
+            maxScore={10}
+            legend="Please indicate on a scale of 1 to 10 how much you agree with this statement."
+          />
+        </div>
+      </main>
     </>
   );
 }
