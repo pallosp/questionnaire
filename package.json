@@ -9,6 +9,7 @@
     "lint": "eslint && stylelint 'src/**/*.css'",
     "lint:fix": "eslint --fix && stylelint 'src/**/*.css' --fix",
     "format": "prettier --write '**/*.{ts,tsx,mjs,md,css}'",
+    "test": "jest",
     "prepare": "husky"
   },
   "dependencies": {
@@ -19,6 +20,8 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@swc/jest": "^0.2.39",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -27,6 +30,8 @@
     "eslint-config-next": "16.1.6",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "husky": "^9.1.7",
+    "jest": "^30.2.0",
+    "jest-resolver-tsconfig-paths": "^0.14.4",
     "lint-staged": "^16.3.2",
     "prettier": "^3.8.1",
     "stylelint": "^17.4.0",
