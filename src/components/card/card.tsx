@@ -26,9 +26,9 @@ export const Card = ({
   return (
     <section className={styles.card} style={style}>
       <h2 className={`${styles.title} text-title-xl`}>{title}</h2>
-      <p className={`${styles.description} text-title-md`}>{description}</p>
+      <p className={`${styles.description} text-body-md`}>{description}</p>
       <footer className={styles.footer}>
-        <span className={'text-title-sm'}>{footer}</span>
+        <span className={'text-body-sm'}>{footer}</span>
         {button}
       </footer>
     </section>

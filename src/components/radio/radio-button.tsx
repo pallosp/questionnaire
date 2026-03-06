@@ -20,7 +20,7 @@ export const RadioButton = ({
   const handleChange = onChange ? () => onChange(value) : undefined;
 
   return (
-    <label className={`${styles.label} text-body-16 ${className || ''}`.trim()}>
+    <label className={`${styles.label} text-body-md ${className || ''}`.trim()}>
       <input
         type="radio"
         name={name}

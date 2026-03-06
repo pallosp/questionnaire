@@ -52,15 +52,35 @@ a {
   text-decoration: none;
 }
 
-/* TODO: consolidate the typography styles */
+.text-body-sm {
+  font: 0.75rem/1.4 var(--body-font); /* 12px */
 
-.text-body {
-  font: 0.875rem/1.4 var(--body-font);
+  /* tablet */
+  @media (width >= 768px) {
+    font-size: 0.875rem; /* 14px */
+  }
+
+  /* desktop */
+  @media (width >= 1280px) {
+    font-size: 1rem; /* 16px */
+  }
 }
 
-.text-body-16 {
-  font: 1rem/1.4 var(--body-font);
+.text-body-md {
+  font: 0.875rem/1.4 var(--body-font); /* 14px */
+
+  /* tablet */
+  @media (width >= 768px) {
+    font-size: 1rem; /* 16px */
+  }
+
+  /* desktop */
+  @media (width >= 1280px) {
+    font-size: 1.125rem; /* 18px */
+  }
 }
+
+/* TODO: consolidate the title typography styles */
 
 .text-title-sm {
   font: 0.75rem/1.4 var(--title-font);

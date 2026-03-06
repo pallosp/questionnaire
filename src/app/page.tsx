@@ -17,7 +17,7 @@ function Title({ html }: { html: string }) {
 }
 
 function Description({ text }: { text: string }) {
-  return <p className={`text-title-md ${styles.description}`}>{text}</p>;
+  return <p className={`text-body-md ${styles.description}`}>{text}</p>;
 }
 
 function Questionnaires({ items }: { items: QuestionnaireConfig[] }) {

@@ -22,7 +22,7 @@ export const RatingGroup = ({
   return (
     <fieldset className={styles.group}>
       {legend && (
-        <legend className={`${styles.legend} text-title-md`}>{legend}</legend>
+        <legend className={`${styles.legend} text-body-md`}>{legend}</legend>
       )}
       <div className={styles.buttons}>
         {scores.map((score) => (

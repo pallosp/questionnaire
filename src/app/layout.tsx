@@ -59,7 +59,7 @@ function FooterLinks({ links }: { links: FooterLink[] }) {
 
 function Footer({ copyright, links }: FooterConfig) {
   return (
-    <footer className={styles.footer}>
+    <footer className={`${styles.footer} text-body-sm`}>
       <div className={styles.copyright}>{copyright}</div>
       <FooterLinks links={links} />
     </footer>

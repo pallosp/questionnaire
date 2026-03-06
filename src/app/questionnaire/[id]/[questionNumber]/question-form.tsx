@@ -85,7 +85,7 @@ export const QuestionForm = ({
 
   return (
     <form onSubmit={onSubmit}>
-      <p className={`${styles['sup-title']} text-title-md`}>{supTitle}</p>
+      <p className={`${styles['sup-title']} text-body-sm`}>{supTitle}</p>
       <h1 className={`${styles.title} text-title-xl`}>{question.question}</h1>
 
       <RatingSection rating={rating} onChange={setRating} />
