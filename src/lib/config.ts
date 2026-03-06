@@ -1,10 +1,17 @@
 import { Config } from '@/types/config';
 
+const CONFIG_URL = 'http://localhost:3000/api/test-config.json';
+const CACHE_TIMEOUT_SEC = 300;
+
 export async function getConfig(): Promise<Config> {
-  const response = await fetch('http://localhost:3000/api/test-config.json');
+  const response = await fetch(CONFIG_URL, {
+    next: { revalidate: CACHE_TIMEOUT_SEC },
+  });
+
   if (!response.ok) {
     throw new Error('Failed to fetch config');
   }
+
   return response.json();
 }
 
