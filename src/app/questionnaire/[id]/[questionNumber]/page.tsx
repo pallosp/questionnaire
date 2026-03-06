@@ -2,11 +2,11 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { z } from 'zod';
 
+import { BackButton } from '@/components/button/back-button';
 import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
-import { BackButton } from './back-button';
 import { Background } from './background';
 import styles from './page.module.css';
 import { RatingGroup } from './rating-group';
@@ -85,10 +85,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
     <>
       <Background variant={context.questionnaire['background-type']} />
       <Logo variant="white" />
-      <BackButton
-        questionnaireId={context.questionnaire.id}
-        currentQuestionNumber={context.questionNumber}
-      />
+      <BackButton className={styles.back} />
       <main className={styles.container}>
         <p className={`${styles['sup-title']} text-title-md`}>{supTitle}</p>
         <h1 className={`${styles.title} text-title-xl`}>

@@ -12,12 +12,15 @@ interface ButtonContentProps {
 }
 
 interface SharedProps extends ButtonContentProps {
+  className?: string;
   variant: ButtonVariant;
   size: ButtonSize;
   disabled?: boolean;
 }
 
-export type ButtonProps = SharedProps;
+export interface ButtonProps extends SharedProps {
+  onClick?: () => void;
+}
 
 export interface LinkButtonProps extends SharedProps {
   href: string;
@@ -25,32 +28,40 @@ export interface LinkButtonProps extends SharedProps {
 
 const ButtonContent = ({ leftIcon, rightIcon, title }: ButtonContentProps) => (
   <>
-    {leftIcon && <span>{leftIcon}</span>}
+    {leftIcon && <span aria-hidden="true">{leftIcon}</span>}
     <span>{title}</span>
-    {rightIcon && <span>{rightIcon}</span>}
+    {rightIcon && <span aria-hidden="true">{rightIcon}</span>}
   </>
 );
 
 export const Button = ({
+  className,
   variant,
   size,
   leftIcon,
   rightIcon,
   title,
   disabled,
+  onClick,
 }: ButtonProps) => {
-  const classes = [styles.button, styles[variant], styles[size]]
+  const classes = [styles.button, styles[variant], styles[size], className]
     .filter(Boolean)
     .join(' ');
 
   return (
-    <button className={classes} disabled={disabled} aria-disabled={disabled}>
+    <button
+      className={classes}
+      disabled={disabled}
+      aria-disabled={disabled}
+      onClick={onClick}
+    >
       <ButtonContent leftIcon={leftIcon} rightIcon={rightIcon} title={title} />
     </button>
   );
 };
 
 export const LinkButton = ({
+  className,
   variant,
   size,
   leftIcon,
@@ -59,7 +70,7 @@ export const LinkButton = ({
   disabled,
   href,
 }: LinkButtonProps) => {
-  const classes = [styles.button, styles[variant], styles[size]]
+  const classes = [styles.button, styles[variant], styles[size], className]
     .filter(Boolean)
     .join(' ');
 
