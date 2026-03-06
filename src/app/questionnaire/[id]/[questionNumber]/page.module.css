@@ -1,19 +1,7 @@
-.container {
+.main {
   color: white;
 }
 
 .back {
   margin-bottom: 2.5rem; /* 40px */
-}
-
-.sup-title {
-  margin-bottom: 1.25rem; /* 20px */
-}
-
-.title {
-  margin-bottom: 3rem; /* 48px */
-}
-
-.rating {
-  margin-bottom: 2.25rem; /* 36px */
 }

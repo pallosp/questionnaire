@@ -9,7 +9,7 @@ import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
 import { Background } from './background';
 import styles from './page.module.css';
-import { RatingGroup } from './rating-group';
+import { QuestionForm } from './question-form';
 
 interface RawPageProps {
   params: Promise<{
@@ -81,23 +81,24 @@ export default async function QuestionPage({ params }: RawPageProps) {
     .replace('{current}', context.questionNumber.toString())
     .replace('{total}', context.questionnaire.questions.length.toString());
 
+  const isLast =
+    context.questionNumber === context.questionnaire.questions.length;
+  const nextUrl = isLast
+    ? '/results'
+    : `/questionnaire/${context.questionnaire.id}/${context.questionNumber + 1}`;
+
   return (
     <>
       <Background variant={context.questionnaire['background-type']} />
       <Logo variant="white" />
       <BackButton className={styles.back} />
-      <main className={styles.container}>
-        <p className={`${styles['sup-title']} text-title-md`}>{supTitle}</p>
-        <h1 className={`${styles.title} text-title-xl`}>
-          {context.question.question}
-        </h1>
-        <div className={styles.rating}>
-          <RatingGroup
-            name="question-rating"
-            maxScore={10}
-            legend="Please indicate on a scale of 1 to 10 how much you agree with this statement."
-          />
-        </div>
+      <main className={styles.main}>
+        <QuestionForm
+          question={context.question}
+          supTitle={supTitle}
+          nextUrl={nextUrl}
+          isLast={isLast}
+        />
       </main>
     </>
   );

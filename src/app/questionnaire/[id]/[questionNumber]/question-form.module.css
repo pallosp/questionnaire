@@ -1,0 +1,25 @@
+.sup-title {
+  margin-bottom: 1.25rem; /* 20px */
+}
+
+.title {
+  margin-bottom: 3rem; /* 48px */
+}
+
+.rating {
+  margin-bottom: 2.25rem; /* 36px */
+}
+
+.follow-up {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* 12px */
+
+  margin-bottom: 2.5rem; /* 40px */
+  border: none;
+}
+
+.align-right {
+  display: flex;
+  justify-content: flex-end;
+}

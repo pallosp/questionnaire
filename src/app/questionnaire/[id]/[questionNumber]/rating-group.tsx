@@ -6,14 +6,16 @@ export interface RatingGroupProps {
   name: string;
   maxScore: number;
   legend?: string;
-  value?: number;
+  currentScore?: number;
+  onChange?: (score: number) => void;
 }
 
 export const RatingGroup = ({
   name,
   legend,
   maxScore,
-  value,
+  currentScore: value,
+  onChange,
 }: RatingGroupProps) => {
   const scores = Array.from({ length: maxScore }, (_, i) => i + 1);
 
@@ -29,7 +31,10 @@ export const RatingGroup = ({
             type="radio"
             name={name}
             value={score}
-            checked={value !== undefined ? value === score : undefined}
+            checked={value === score}
+            onChange={(e) => {
+              onChange?.(+e.target.value);
+            }}
             className={styles.radio}
             aria-label={`Rate ${score}`}
           />

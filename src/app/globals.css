@@ -52,8 +52,14 @@ a {
   text-decoration: none;
 }
 
+/* TODO: consolidate the typography styles */
+
 .text-body {
   font: 0.875rem/1.4 var(--body-font);
+}
+
+.text-body-16 {
+  font: 1rem/1.4 var(--body-font);
 }
 
 .text-title-sm {
