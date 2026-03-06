@@ -19,6 +19,7 @@ interface SharedProps extends ButtonContentProps {
 }
 
 export interface ButtonProps extends SharedProps {
+  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
 }
 
@@ -42,6 +43,7 @@ export const Button = ({
   rightIcon,
   title,
   disabled,
+  type,
   onClick,
 }: ButtonProps) => {
   const classes = [styles.button, styles[variant], styles[size], className]
@@ -50,6 +52,7 @@ export const Button = ({
 
   return (
     <button
+      type={type}
       className={classes}
       disabled={disabled}
       aria-disabled={disabled}
