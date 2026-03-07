@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { BackButton } from '@/components/button/back-button';
 import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
-import { Config, Question, QuestionnaireConfig } from '@/types/config';
+import { Config, QuestionnaireConfig } from '@/types/config';
 
 import { Background } from './background';
 import styles from './page.module.css';
@@ -25,8 +25,9 @@ const paramsSchema = z.object({
 
 interface QuestionContext {
   questionnaire: QuestionnaireConfig;
+
+  /** Question number in the URL, starting with 1 */
   questionNumber: number;
-  question: Question;
 }
 
 function getQuestionContext(
@@ -47,7 +48,6 @@ function getQuestionContext(
   return {
     questionnaire,
     questionNumber,
-    question: questionnaire.questions[questionNumber - 1],
   };
 }
 
@@ -94,7 +94,8 @@ export default async function QuestionPage({ params }: RawPageProps) {
       <BackButton className={styles.back} />
       <div className={styles.form}>
         <QuestionForm
-          question={context.question}
+          questionnaire={context.questionnaire}
+          questionNumber={context.questionNumber}
           supTitle={supTitle}
           nextUrl={nextUrl}
           isLast={isLast}

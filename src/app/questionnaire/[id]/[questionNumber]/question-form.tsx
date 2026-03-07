@@ -1,61 +1,115 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect } from 'react';
 
-import { Button, LinkButton } from '@/components/button/button';
+import { Button } from '@/components/button/button';
 import { RadioButton } from '@/components/radio/radio-button';
 import { needsFollowUpQuestion } from '@/lib/config';
-import { Question } from '@/types/config';
+import {
+  useAnswer,
+  useIsComplete,
+  useQuestionnaireActions,
+} from '@/lib/questionnaire-store';
+import { QuestionnaireConfig } from '@/types/config';
 
 import styles from './question-form.module.css';
 import { RatingGroup } from './rating-group';
 
 interface SubmitButtonProps {
   disabled: boolean;
+  nextUrl: string;
 }
 
-const NextButton = ({ disabled }: SubmitButtonProps) => (
-  <Button
-    className={styles.next}
-    type="submit"
-    variant="primary"
-    size="large"
-    title="Next question"
-    rightIcon="→"
-    disabled={disabled}
-  />
-);
+const NextButton = ({ disabled, nextUrl }: SubmitButtonProps) => {
+  const router = useRouter();
+  const handleClick = () => router.push(nextUrl);
 
-const FinishAndSaveButton = ({ disabled }: SubmitButtonProps) => (
-  <Button
-    type="submit"
-    variant="primary"
-    size="large"
-    title="Finish and save"
-    disabled={disabled}
-  />
-);
+  return (
+    <Button
+      className={styles.next}
+      type="submit"
+      variant="primary"
+      size="large"
+      title="Next question"
+      rightIcon="→"
+      disabled={disabled}
+      onClick={handleClick}
+    />
+  );
+};
+
+const FinishAndSaveButton = ({
+  disabled,
+  nextUrl,
+  config,
+}: SubmitButtonProps & { config: QuestionnaireConfig }) => {
+  const router = useRouter();
+  const { save } = useQuestionnaireActions();
+  const isStoreComplete = useIsComplete(config);
+
+  const handleClick = () => {
+    if (!isStoreComplete) {
+      alert(
+        'Some questions are still missing.\n' +
+          'Please open the questionnaire again to answer them.',
+      );
+    }
+    save();
+    router.push(nextUrl);
+  };
+
+  return (
+    <Button
+      type="submit"
+      variant="primary"
+      size="large"
+      title="Finish and save"
+      disabled={disabled}
+      onClick={handleClick}
+    />
+  );
+};
 
 const QuitButton = () => {
-  return <LinkButton variant="secondary" size="medium" title="Quit" href="/" />;
+  const router = useRouter();
+  const { discard } = useQuestionnaireActions();
+  return (
+    <Button
+      type="button"
+      role="link"
+      variant="secondary"
+      size="medium"
+      title="Quit"
+      onClick={() => {
+        discard();
+        router.push('/');
+      }}
+    />
+  );
 };
 
 const QuitAndSaveButton = () => {
   const router = useRouter();
+  const { save } = useQuestionnaireActions();
   return (
     <Button
       type="button"
+      role="link"
       variant="secondary"
       size="medium"
       title="Quit & Save"
-      onClick={() => router.push('/')}
+      onClick={() => {
+        save();
+        router.push('/');
+      }}
     />
   );
 };
 
 export interface QuestionFormProps {
-  question: Question;
+  questionnaire: QuestionnaireConfig;
+  questionNumber: number;
   supTitle: string;
   nextUrl: string;
   isLast: boolean;
@@ -103,47 +157,71 @@ const FollowUpSection = ({
 );
 
 export const QuestionForm = ({
-  question,
+  questionnaire: config,
+  questionNumber,
   supTitle,
   nextUrl,
   isLast,
 }: QuestionFormProps) => {
-  const router = useRouter();
-  const [rating, setRating] = useState<number | undefined>();
-  const [followUpSelection, setFollowUpSelection] = useState<
-    number | undefined
-  >();
+  const { start, setAnswer } = useQuestionnaireActions();
+  const answer = useAnswer(config.id, questionNumber);
+
+  const rating = answer?.rating;
+  const followUpSelection = answer?.followUpSelection;
+  const questionIndex = questionNumber - 1;
+  const question = config.questions[questionIndex];
 
   const showFollowUp = needsFollowUpQuestion(question.validation, rating);
-
-  const isComplete =
+  const isCompleteForm =
     rating !== undefined && (!showFollowUp || followUpSelection !== undefined);
 
-  const onSubmit = (e: React.SubmitEvent) => {
-    e.preventDefault();
-    router.push(nextUrl);
+  // Initialize the draft questionnaire on mount.
+  useEffect(() => {
+    start(config.id);
+  }, [start, config.id]);
+
+  const handleRatingChange = (value: number) => {
+    setAnswer(questionNumber, {
+      rating: value,
+      followUpSelection: needsFollowUpQuestion(question.validation, value)
+        ? followUpSelection
+        : undefined,
+    });
+  };
+
+  const handleFollowUpChange = (value: string) => {
+    if (rating !== undefined) {
+      setAnswer(questionNumber, {
+        rating,
+        followUpSelection: Number(value),
+      });
+    }
   };
 
   return (
-    <form onSubmit={onSubmit} className={styles.form}>
+    <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
       <p className={`${styles['sup-title']} text-body-sm`}>{supTitle}</p>
       <h1 className={`${styles.title} text-title-xl`}>{question.question}</h1>
 
-      <RatingSection rating={rating} onChange={setRating} />
+      <RatingSection rating={rating} onChange={handleRatingChange} />
 
       {showFollowUp && (
         <FollowUpSection
           options={question['follow-up-options']!}
           selection={followUpSelection}
-          onChange={(val) => setFollowUpSelection(Number(val))}
+          onChange={handleFollowUpChange}
         />
       )}
 
-      {!isLast && <NextButton disabled={!isComplete} />}
+      {!isLast && <NextButton disabled={!isCompleteForm} nextUrl={nextUrl} />}
 
       <div className={styles['bottom-actions']}>
         {isLast ? (
-          <FinishAndSaveButton disabled={!isComplete} />
+          <FinishAndSaveButton
+            disabled={!isCompleteForm}
+            nextUrl={nextUrl}
+            config={config}
+          />
         ) : (
           <>
             <QuitButton />
