@@ -92,14 +92,14 @@ export default async function QuestionPage({ params }: RawPageProps) {
       <Background variant={context.questionnaire['background-type']} />
       <Logo variant="white" />
       <BackButton className={styles.back} />
-      <main className={styles.main}>
+      <div className={styles.form}>
         <QuestionForm
           question={context.question}
           supTitle={supTitle}
           nextUrl={nextUrl}
           isLast={isLast}
         />
-      </main>
+      </div>
     </>
   );
 }

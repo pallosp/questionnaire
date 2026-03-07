@@ -3,13 +3,56 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { Button } from '@/components/button/button';
+import { Button, LinkButton } from '@/components/button/button';
 import { RadioButton } from '@/components/radio/radio-button';
 import { needsFollowUpQuestion } from '@/lib/config';
 import { Question } from '@/types/config';
 
 import styles from './question-form.module.css';
 import { RatingGroup } from './rating-group';
+
+interface SubmitButtonProps {
+  disabled: boolean;
+}
+
+const NextButton = ({ disabled }: SubmitButtonProps) => (
+  <Button
+    className={styles.next}
+    type="submit"
+    variant="primary"
+    size="large"
+    title="Next question"
+    rightIcon="→"
+    disabled={disabled}
+  />
+);
+
+const FinishAndSaveButton = ({ disabled }: SubmitButtonProps) => (
+  <Button
+    type="submit"
+    variant="primary"
+    size="large"
+    title="Finish and save"
+    disabled={disabled}
+  />
+);
+
+const QuitButton = () => {
+  return <LinkButton variant="secondary" size="medium" title="Quit" href="/" />;
+};
+
+const QuitAndSaveButton = () => {
+  const router = useRouter();
+  return (
+    <Button
+      type="button"
+      variant="secondary"
+      size="medium"
+      title="Quit & Save"
+      onClick={() => router.push('/')}
+    />
+  );
+};
 
 export interface QuestionFormProps {
   question: Question;
@@ -84,7 +127,7 @@ export const QuestionForm = ({
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={styles.form}>
       <p className={`${styles['sup-title']} text-body-sm`}>{supTitle}</p>
       <h1 className={`${styles.title} text-title-xl`}>{question.question}</h1>
 
@@ -98,15 +141,17 @@ export const QuestionForm = ({
         />
       )}
 
-      <div className={isLast ? styles['align-right'] : undefined}>
-        <Button
-          type="submit"
-          variant="primary"
-          size="large"
-          title={isLast ? 'Save and finish' : 'Next question'}
-          rightIcon={isLast ? undefined : '→'}
-          disabled={!isComplete}
-        />
+      {!isLast && <NextButton disabled={!isComplete} />}
+
+      <div className={styles['bottom-actions']}>
+        {isLast ? (
+          <FinishAndSaveButton disabled={!isComplete} />
+        ) : (
+          <>
+            <QuitButton />
+            <QuitAndSaveButton />
+          </>
+        )}
       </div>
     </form>
   );

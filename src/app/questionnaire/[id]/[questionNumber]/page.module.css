@@ -1,7 +1,11 @@
-.main {
-  color: white;
+.back {
+  align-self: flex-start;
+  margin-bottom: 2.5rem; /* 40px */
 }
 
-.back {
-  margin-bottom: 2.5rem; /* 40px */
+.form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  color: white;
 }

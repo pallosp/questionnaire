@@ -1,3 +1,9 @@
+.form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
 .sup-title {
   margin-bottom: 1.25rem; /* 20px */
 }
@@ -19,7 +25,16 @@
   border: none;
 }
 
-.align-right {
+.next {
+  align-self: start;
+}
+
+.bottom-actions {
   display: flex;
+  flex: 1;
+  gap: 0.5rem; /* 8px */
+  align-items: flex-end;
   justify-content: flex-end;
+
+  padding-top: 1.5rem;
 }
