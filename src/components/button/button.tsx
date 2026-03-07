@@ -20,6 +20,7 @@ interface SharedProps extends ButtonContentProps {
 
 export interface ButtonProps extends SharedProps {
   type?: 'button' | 'submit' | 'reset';
+  role?: string;
   onClick?: () => void;
 }
 
@@ -44,6 +45,7 @@ export const Button = ({
   title,
   disabled,
   type,
+  role,
   onClick,
 }: ButtonProps) => {
   const classes = [styles.button, styles[variant], styles[size], className]
@@ -53,6 +55,7 @@ export const Button = ({
   return (
     <button
       type={type}
+      role={role}
       className={classes}
       disabled={disabled}
       aria-disabled={disabled}
