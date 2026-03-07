@@ -66,7 +66,12 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
     });
   },
 
-  discard: () => {},
+  discard: () => {
+    set({
+      draftAnswers: {},
+      draftId: undefined,
+    });
+  },
 
   isComplete: (questionnaire: QuestionnaireConfig) => {
     return false;

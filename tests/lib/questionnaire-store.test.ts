@@ -85,4 +85,26 @@ describe('stateImpl', () => {
       expect(store.getState().savedAnswers).toEqual(saved);
     });
   });
+
+  describe('discard()', () => {
+    it('clears draft', () => {
+      store.getState().start('q1');
+      store.getState().update(0, { rating: 42 });
+      store.getState().discard();
+
+      expect(store.getState().draftId).toBeUndefined();
+      expect(store.getState().draftAnswers).toEqual({});
+    });
+
+    it('preserves saved answers', () => {
+      const saved = { q1: { 0: { rating: 42 } } };
+      store.setState({ savedAnswers: saved });
+
+      store.getState().start('q1');
+      store.getState().update(0, { rating: 43 });
+      store.getState().discard();
+
+      expect(store.getState().savedAnswers).toEqual(saved);
+    });
+  });
 });
