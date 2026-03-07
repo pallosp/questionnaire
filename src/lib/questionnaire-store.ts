@@ -26,11 +26,9 @@ export interface QuestionnaireState {
     save: () => void;
     discard: () => void;
   };
-
-  isComplete: (config: QuestionnaireConfig) => boolean;
 }
 
-const isComplete = (
+const isCompleteHelper = (
   config: QuestionnaireConfig,
   answers: Record<number, Answer>,
 ): boolean => {
@@ -48,6 +46,7 @@ const isComplete = (
   });
 };
 
+/** @internal - test only */
 export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
   savedAnswers: {},
   draftAnswers: {},
@@ -96,19 +95,9 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
       });
     },
   },
-
-  isComplete: (questionnaire: QuestionnaireConfig) => {
-    const { draftId, draftAnswers, savedAnswers } = get();
-    const answers =
-      draftId === questionnaire.id
-        ? draftAnswers
-        : savedAnswers[questionnaire.id];
-
-    return Boolean(answers) && isComplete(questionnaire, answers);
-  },
 });
 
-export const useQuestionnaireStore = create<QuestionnaireState>()(
+const useQuestionnaireStore = create<QuestionnaireState>()(
   persist(stateImpl, {
     name: 'questionnaire-store',
     partialize: (state) => ({
@@ -116,3 +105,32 @@ export const useQuestionnaireStore = create<QuestionnaireState>()(
     }),
   }),
 );
+
+/** @internal - test only */
+export const isComplete = (
+  state: QuestionnaireState,
+  config: QuestionnaireConfig,
+): boolean => {
+  const answers =
+    state.draftId === config.id
+      ? state.draftAnswers
+      : state.savedAnswers[config.id];
+
+  return Boolean(answers) && isCompleteHelper(config, answers);
+};
+
+export const useAnswer = (
+  questionnaireId: string,
+  questionNumber: number,
+): Answer | undefined =>
+  useQuestionnaireStore((state) =>
+    state.draftId === questionnaireId
+      ? state.draftAnswers[questionNumber]
+      : state.savedAnswers[questionnaireId]?.[questionNumber],
+  );
+
+export const useIsComplete = (config: QuestionnaireConfig): boolean =>
+  useQuestionnaireStore((state) => isComplete(state, config));
+
+export const useQuestionnaireActions = () =>
+  useQuestionnaireStore((state) => state.actions);

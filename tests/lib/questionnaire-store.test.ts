@@ -1,6 +1,10 @@
 import { create, StoreApi } from 'zustand';
 
-import { QuestionnaireState, stateImpl } from '@/lib/questionnaire-store';
+import {
+  isComplete,
+  QuestionnaireState,
+  stateImpl,
+} from '@/lib/questionnaire-store';
 import { QuestionnaireConfig } from '@/types/config';
 
 describe('stateImpl', () => {
@@ -125,34 +129,34 @@ describe('stateImpl', () => {
     } as QuestionnaireConfig;
 
     test('no answers', () => {
-      expect(store.getState().isComplete(config)).toBe(false);
+      expect(isComplete(store.getState(), config)).toBe(false);
     });
 
     test('missing answer', () => {
       store.getState().actions.start('q1');
       store.getState().actions.update(1, { rating: 5 });
-      expect(store.getState().isComplete(config)).toBe(false);
+      expect(isComplete(store.getState(), config)).toBe(false);
     });
 
     test('missing follow-up', () => {
       store.getState().actions.start('q1');
       store.getState().actions.update(1, { rating: 9 });
       store.getState().actions.update(2, { rating: 7 });
-      expect(store.getState().isComplete(config)).toBe(false);
+      expect(isComplete(store.getState(), config)).toBe(false);
     });
 
     test('all answered, no follow-up needed', () => {
       store.getState().actions.start('q1');
       store.getState().actions.update(1, { rating: 5 });
       store.getState().actions.update(2, { rating: 7 });
-      expect(store.getState().isComplete(config)).toBe(true);
+      expect(isComplete(store.getState(), config)).toBe(true);
     });
 
     test('all answered, follow-up provided', () => {
       store.getState().actions.start('q1');
       store.getState().actions.update(1, { rating: 9, followUpSelection: 0 });
       store.getState().actions.update(2, { rating: 3 });
-      expect(store.getState().isComplete(config)).toBe(true);
+      expect(isComplete(store.getState(), config)).toBe(true);
     });
 
     test('saved answers', () => {
@@ -163,7 +167,7 @@ describe('stateImpl', () => {
         },
       };
       store.setState({ savedAnswers });
-      expect(store.getState().isComplete(config)).toBe(true);
+      expect(isComplete(store.getState(), config)).toBe(true);
     });
   });
 });
