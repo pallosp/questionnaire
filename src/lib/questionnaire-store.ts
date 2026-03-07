@@ -50,7 +50,21 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
     }));
   },
 
-  save: () => {},
+  save: () => {
+    set((state) => {
+      const { draftId, draftAnswers, savedAnswers } = state;
+      if (!draftId) return state;
+
+      return {
+        savedAnswers: {
+          ...savedAnswers,
+          [draftId]: { ...draftAnswers },
+        },
+        draftAnswers: {},
+        draftId: undefined,
+      };
+    });
+  },
 
   discard: () => {},
 

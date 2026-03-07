@@ -66,4 +66,23 @@ describe('stateImpl', () => {
       expect(store.getState().draftAnswers[1].rating).toBe(43);
     });
   });
+
+  describe('save()', () => {
+    it('persists draft', () => {
+      store.getState().start('q1');
+      store.getState().update(0, { rating: 42 });
+      store.getState().save();
+
+      expect(store.getState().savedAnswers.q1[0].rating).toBe(42);
+      expect(store.getState().draftId).toBeUndefined();
+      expect(store.getState().draftAnswers).toEqual({});
+    });
+
+    it('does nothing when no draft is present', () => {
+      const saved = { q1: { 0: { rating: 42 } } };
+      store.setState({ savedAnswers: saved });
+      store.getState().save();
+      expect(store.getState().savedAnswers).toEqual(saved);
+    });
+  });
 });
