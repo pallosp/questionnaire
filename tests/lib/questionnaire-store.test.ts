@@ -1,6 +1,6 @@
 import { create, StoreApi } from 'zustand';
 
-import { QuestionnaireState,stateImpl } from '@/lib/questionnaire-store';
+import { QuestionnaireState, stateImpl } from '@/lib/questionnaire-store';
 
 describe('stateImpl', () => {
   let store: StoreApi<QuestionnaireState>;
@@ -40,6 +40,30 @@ describe('stateImpl', () => {
       store.getState().start('q2');
       expect(store.getState().draftId).toBe('q2');
       expect(store.getState().draftAnswers).toEqual({});
+    });
+  });
+
+  describe('update()', () => {
+    it('sets answer', () => {
+      const answer = { rating: 42 };
+      store.getState().start('q1');
+      store.getState().update(0, answer);
+      expect(store.getState().draftAnswers[0]).toEqual(answer);
+    });
+
+    it('overwrites answer', () => {
+      store.getState().start('q1');
+      store.getState().update(0, { rating: 42 });
+      store.getState().update(0, { rating: 43 });
+      expect(store.getState().draftAnswers[0].rating).toBe(43);
+    });
+
+    it('preserves other answers', () => {
+      store.getState().start('q1');
+      store.getState().update(0, { rating: 42 });
+      store.getState().update(1, { rating: 43 });
+      expect(store.getState().draftAnswers[0].rating).toBe(42);
+      expect(store.getState().draftAnswers[1].rating).toBe(43);
     });
   });
 });

@@ -41,7 +41,14 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
     });
   },
 
-  update: (questionNumber: number, answer: Answer) => {},
+  update: (questionNumber: number, answer: Answer) => {
+    set((state) => ({
+      draftAnswers: {
+        ...state.draftAnswers,
+        [questionNumber]: answer,
+      },
+    }));
+  },
 
   save: () => {},
 
