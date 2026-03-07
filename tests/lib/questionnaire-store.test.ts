@@ -48,25 +48,25 @@ describe('stateImpl', () => {
     });
   });
 
-  describe('update()', () => {
+  describe('setAnswer()', () => {
     it('sets answer', () => {
       const answer = { rating: 42 };
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, answer);
+      store.getState().actions.setAnswer(1, answer);
       expect(store.getState().draftAnswers[1]).toEqual(answer);
     });
 
     it('overwrites answer', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 42 });
-      store.getState().actions.update(1, { rating: 43 });
+      store.getState().actions.setAnswer(1, { rating: 42 });
+      store.getState().actions.setAnswer(1, { rating: 43 });
       expect(store.getState().draftAnswers[1].rating).toBe(43);
     });
 
     it('preserves other answers', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 42 });
-      store.getState().actions.update(2, { rating: 43 });
+      store.getState().actions.setAnswer(1, { rating: 42 });
+      store.getState().actions.setAnswer(2, { rating: 43 });
       expect(store.getState().draftAnswers[1].rating).toBe(42);
       expect(store.getState().draftAnswers[2].rating).toBe(43);
     });
@@ -75,7 +75,7 @@ describe('stateImpl', () => {
   describe('save()', () => {
     it('persists draft', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 42 });
+      store.getState().actions.setAnswer(1, { rating: 42 });
       store.getState().actions.save();
 
       expect(store.getState().savedAnswers.q1[1].rating).toBe(42);
@@ -94,7 +94,7 @@ describe('stateImpl', () => {
   describe('discard()', () => {
     it('clears draft', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 42 });
+      store.getState().actions.setAnswer(1, { rating: 42 });
       store.getState().actions.discard();
 
       expect(store.getState().draftId).toBeUndefined();
@@ -106,7 +106,7 @@ describe('stateImpl', () => {
       store.setState({ savedAnswers: saved });
 
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 43 });
+      store.getState().actions.setAnswer(1, { rating: 43 });
       store.getState().actions.discard();
 
       expect(store.getState().savedAnswers).toEqual(saved);
@@ -134,28 +134,30 @@ describe('stateImpl', () => {
 
     test('missing answer', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 5 });
+      store.getState().actions.setAnswer(1, { rating: 5 });
       expect(isComplete(store.getState(), config)).toBe(false);
     });
 
     test('missing follow-up', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 9 });
-      store.getState().actions.update(2, { rating: 7 });
+      store.getState().actions.setAnswer(1, { rating: 9 });
+      store.getState().actions.setAnswer(2, { rating: 7 });
       expect(isComplete(store.getState(), config)).toBe(false);
     });
 
     test('all answered, no follow-up needed', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 5 });
-      store.getState().actions.update(2, { rating: 7 });
+      store.getState().actions.setAnswer(1, { rating: 5 });
+      store.getState().actions.setAnswer(2, { rating: 7 });
       expect(isComplete(store.getState(), config)).toBe(true);
     });
 
     test('all answered, follow-up provided', () => {
       store.getState().actions.start('q1');
-      store.getState().actions.update(1, { rating: 9, followUpSelection: 0 });
-      store.getState().actions.update(2, { rating: 3 });
+      store
+        .getState()
+        .actions.setAnswer(1, { rating: 9, followUpSelection: 0 });
+      store.getState().actions.setAnswer(2, { rating: 3 });
       expect(isComplete(store.getState(), config)).toBe(true);
     });
 

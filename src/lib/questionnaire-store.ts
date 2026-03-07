@@ -18,12 +18,21 @@ export interface QuestionnaireState {
 
   /** Draft answers for current questionnaire */
   draftAnswers: Record<number, Answer>;
+
+  /** ID of the currently active questionnaire */
   draftId?: string;
 
   actions: {
+    /** Starts or resumes a questionnaire. */
     start: (questionnaireId: string) => void;
-    update: (questionNumber: number, answer: Answer) => void;
+
+    /** Sets or updates an answer. */
+    setAnswer: (questionNumber: number, answer: Answer) => void;
+
+    /** Saves the draft answers. */
     save: () => void;
+
+    /** Discards the draft answers. */
     discard: () => void;
   };
 }
@@ -63,7 +72,7 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
       });
     },
 
-    update: (questionNumber: number, answer: Answer) => {
+    setAnswer: (questionNumber: number, answer: Answer) => {
       set((state) => ({
         draftAnswers: {
           ...state.draftAnswers,
