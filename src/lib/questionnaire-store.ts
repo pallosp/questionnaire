@@ -1,3 +1,5 @@
+// Zustand best practices: https://tkdodo.eu/blog/working-with-zustand
+
 import { StateCreator } from 'zustand';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
@@ -18,10 +20,12 @@ export interface QuestionnaireState {
   draftAnswers: Record<number, Answer>;
   draftId?: string;
 
-  start: (questionnaireId: string) => void;
-  update: (questionNumber: number, answer: Answer) => void;
-  save: () => void;
-  discard: () => void;
+  actions: {
+    start: (questionnaireId: string) => void;
+    update: (questionNumber: number, answer: Answer) => void;
+    save: () => void;
+    discard: () => void;
+  };
 
   isComplete: (config: QuestionnaireConfig) => boolean;
 }
@@ -49,46 +53,48 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
   draftAnswers: {},
   draftId: undefined,
 
-  start: (questionnaireId: string) => {
-    const { draftId, savedAnswers } = get();
-    if (draftId === questionnaireId) return;
+  actions: {
+    start: (questionnaireId: string) => {
+      const { draftId, savedAnswers } = get();
+      if (draftId === questionnaireId) return;
 
-    set({
-      draftId: questionnaireId,
-      draftAnswers: { ...(savedAnswers[questionnaireId] || {}) },
-    });
-  },
+      set({
+        draftId: questionnaireId,
+        draftAnswers: { ...(savedAnswers[questionnaireId] || {}) },
+      });
+    },
 
-  update: (questionNumber: number, answer: Answer) => {
-    set((state) => ({
-      draftAnswers: {
-        ...state.draftAnswers,
-        [questionNumber]: answer,
-      },
-    }));
-  },
-
-  save: () => {
-    set((state) => {
-      const { draftId, draftAnswers, savedAnswers } = state;
-      if (!draftId) return state;
-
-      return {
-        savedAnswers: {
-          ...savedAnswers,
-          [draftId]: { ...draftAnswers },
+    update: (questionNumber: number, answer: Answer) => {
+      set((state) => ({
+        draftAnswers: {
+          ...state.draftAnswers,
+          [questionNumber]: answer,
         },
+      }));
+    },
+
+    save: () => {
+      set((state) => {
+        const { draftId, draftAnswers, savedAnswers } = state;
+        if (!draftId) return state;
+
+        return {
+          savedAnswers: {
+            ...savedAnswers,
+            [draftId]: { ...draftAnswers },
+          },
+          draftAnswers: {},
+          draftId: undefined,
+        };
+      });
+    },
+
+    discard: () => {
+      set({
         draftAnswers: {},
         draftId: undefined,
-      };
-    });
-  },
-
-  discard: () => {
-    set({
-      draftAnswers: {},
-      draftId: undefined,
-    });
+      });
+    },
   },
 
   isComplete: (questionnaire: QuestionnaireConfig) => {

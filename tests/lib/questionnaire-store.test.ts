@@ -12,7 +12,7 @@ describe('stateImpl', () => {
 
   describe('start()', () => {
     it('initializes draft', () => {
-      store.getState().start('q1');
+      store.getState().actions.start('q1');
       expect(store.getState().draftId).toBe('q1');
       expect(store.getState().draftAnswers).toEqual({});
     });
@@ -21,24 +21,24 @@ describe('stateImpl', () => {
       const saved = { q1: { 1: { rating: 42 } } };
       store.setState({ savedAnswers: saved });
 
-      store.getState().start('q1');
+      store.getState().actions.start('q1');
       expect(store.getState().draftAnswers).toEqual(saved.q1);
     });
 
     it('does not discard draft if same id', () => {
-      store.getState().start('q1');
+      store.getState().actions.start('q1');
       const draft = { 1: { rating: 42 } };
       store.setState({ draftAnswers: draft });
 
-      store.getState().start('q1');
+      store.getState().actions.start('q1');
       expect(store.getState().draftAnswers).toEqual(draft);
     });
 
     it('discards draft on new id', () => {
-      store.getState().start('q1');
+      store.getState().actions.start('q1');
       store.setState({ draftAnswers: { 1: { rating: 42 } } });
 
-      store.getState().start('q2');
+      store.getState().actions.start('q2');
       expect(store.getState().draftId).toBe('q2');
       expect(store.getState().draftAnswers).toEqual({});
     });
@@ -47,22 +47,22 @@ describe('stateImpl', () => {
   describe('update()', () => {
     it('sets answer', () => {
       const answer = { rating: 42 };
-      store.getState().start('q1');
-      store.getState().update(1, answer);
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, answer);
       expect(store.getState().draftAnswers[1]).toEqual(answer);
     });
 
     it('overwrites answer', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 42 });
-      store.getState().update(1, { rating: 43 });
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 42 });
+      store.getState().actions.update(1, { rating: 43 });
       expect(store.getState().draftAnswers[1].rating).toBe(43);
     });
 
     it('preserves other answers', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 42 });
-      store.getState().update(2, { rating: 43 });
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 42 });
+      store.getState().actions.update(2, { rating: 43 });
       expect(store.getState().draftAnswers[1].rating).toBe(42);
       expect(store.getState().draftAnswers[2].rating).toBe(43);
     });
@@ -70,9 +70,9 @@ describe('stateImpl', () => {
 
   describe('save()', () => {
     it('persists draft', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 42 });
-      store.getState().save();
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 42 });
+      store.getState().actions.save();
 
       expect(store.getState().savedAnswers.q1[1].rating).toBe(42);
       expect(store.getState().draftId).toBeUndefined();
@@ -82,16 +82,16 @@ describe('stateImpl', () => {
     it('does nothing when no draft is present', () => {
       const saved = { q1: { 1: { rating: 42 } } };
       store.setState({ savedAnswers: saved });
-      store.getState().save();
+      store.getState().actions.save();
       expect(store.getState().savedAnswers).toEqual(saved);
     });
   });
 
   describe('discard()', () => {
     it('clears draft', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 42 });
-      store.getState().discard();
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 42 });
+      store.getState().actions.discard();
 
       expect(store.getState().draftId).toBeUndefined();
       expect(store.getState().draftAnswers).toEqual({});
@@ -101,9 +101,9 @@ describe('stateImpl', () => {
       const saved = { q1: { 1: { rating: 42 } } };
       store.setState({ savedAnswers: saved });
 
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 43 });
-      store.getState().discard();
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 43 });
+      store.getState().actions.discard();
 
       expect(store.getState().savedAnswers).toEqual(saved);
     });
@@ -129,29 +129,29 @@ describe('stateImpl', () => {
     });
 
     test('missing answer', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 5 });
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 5 });
       expect(store.getState().isComplete(config)).toBe(false);
     });
 
     test('missing follow-up', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 9 });
-      store.getState().update(2, { rating: 7 });
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 9 });
+      store.getState().actions.update(2, { rating: 7 });
       expect(store.getState().isComplete(config)).toBe(false);
     });
 
     test('all answered, no follow-up needed', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 5 });
-      store.getState().update(2, { rating: 7 });
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 5 });
+      store.getState().actions.update(2, { rating: 7 });
       expect(store.getState().isComplete(config)).toBe(true);
     });
 
     test('all answered, follow-up provided', () => {
-      store.getState().start('q1');
-      store.getState().update(1, { rating: 9, followUpSelection: 0 });
-      store.getState().update(2, { rating: 3 });
+      store.getState().actions.start('q1');
+      store.getState().actions.update(1, { rating: 9, followUpSelection: 0 });
+      store.getState().actions.update(2, { rating: 3 });
       expect(store.getState().isComplete(config)).toBe(true);
     });
 
