@@ -20,12 +20,18 @@ export async function getConfig(): Promise<Config> {
  * given to the current question.
  *
  * @param condition A string in the format of '<5', '>=5', '=5'.
+ *     Undefined if no follow-up question is needed.
  * @param score The rating between 1 and 10 to compare.
+ *     Undefined if the user hasn't rated the question.
  */
 export function needsFollowUpQuestion(
-  condition: string,
-  score: number,
+  condition: string | undefined,
+  score: number | undefined,
 ): boolean {
+  if (!condition || score === undefined) {
+    return false;
+  }
+
   if (condition.startsWith('>=')) {
     return score >= +condition.substring(2);
   } else if (condition.startsWith('>')) {
@@ -37,5 +43,6 @@ export function needsFollowUpQuestion(
   } else if (condition.startsWith('=')) {
     return score === +condition.substring(1);
   }
+
   return false;
 }

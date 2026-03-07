@@ -114,9 +114,7 @@ export const QuestionForm = ({
     number | undefined
   >();
 
-  const showFollowUp =
-    rating !== undefined &&
-    needsFollowUpQuestion(question.validation ?? '', rating);
+  const showFollowUp = needsFollowUpQuestion(question.validation, rating);
 
   const isComplete =
     rating !== undefined && (!showFollowUp || followUpSelection !== undefined);

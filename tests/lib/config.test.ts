@@ -1,6 +1,14 @@
 import { needsFollowUpQuestion } from '@/lib/config';
 
 describe('needsFollowUpQuestion', () => {
+  test('undefined condition', () => {
+    expect(needsFollowUpQuestion(undefined, 5)).toBe(false);
+  });
+
+  test('undefined score', () => {
+    expect(needsFollowUpQuestion('>6', undefined)).toBe(false);
+  });
+
   test('> condition', () => {
     expect(needsFollowUpQuestion('>6', 7)).toBe(true);
     expect(needsFollowUpQuestion('>6', 6)).toBe(false);
