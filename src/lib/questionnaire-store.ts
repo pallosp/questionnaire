@@ -2,6 +2,7 @@ import { StateCreator } from 'zustand';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { needsFollowUpQuestion } from '@/lib/config';
 import { QuestionnaireConfig } from '@/types/config';
 
 export interface Answer {
@@ -25,7 +26,24 @@ export interface QuestionnaireState {
   isComplete: (config: QuestionnaireConfig) => boolean;
 }
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
+const isComplete = (
+  config: QuestionnaireConfig,
+  answers: Record<number, Answer>,
+): boolean => {
+  return config.questions.every((q, index) => {
+    const questionNumber = index + 1;
+    const answer = answers[questionNumber];
+    if (!answer) return false;
+
+    const needsFollowUp = needsFollowUpQuestion(q.validation, answer.rating);
+    if (needsFollowUp && answer.followUpSelection === undefined) {
+      return false;
+    }
+
+    return true;
+  });
+};
+
 export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
   savedAnswers: {},
   draftAnswers: {},
@@ -74,7 +92,13 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
   },
 
   isComplete: (questionnaire: QuestionnaireConfig) => {
-    return false;
+    const { draftId, draftAnswers, savedAnswers } = get();
+    const answers =
+      draftId === questionnaire.id
+        ? draftAnswers
+        : savedAnswers[questionnaire.id];
+
+    return Boolean(answers) && isComplete(questionnaire, answers);
   },
 });
 
