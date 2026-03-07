@@ -26,12 +26,20 @@ export interface QuestionnaireState {
 }
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
+export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
   savedAnswers: {},
   draftAnswers: {},
   draftId: undefined,
 
-  start: (questionnaireId: string) => {},
+  start: (questionnaireId: string) => {
+    const { draftId, savedAnswers } = get();
+    if (draftId === questionnaireId) return;
+
+    set({
+      draftId: questionnaireId,
+      draftAnswers: { ...(savedAnswers[questionnaireId] || {}) },
+    });
+  },
 
   update: (questionNumber: number, answer: Answer) => {},
 
