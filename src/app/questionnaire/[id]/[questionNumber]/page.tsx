@@ -90,9 +90,11 @@ export default async function QuestionPage({ params }: RawPageProps) {
   return (
     <>
       <Background variant={context.questionnaire['background-type']} />
-      <Logo variant="white" />
-      <BackButton className={styles.back} />
-      <div className={styles.form}>
+      <nav>
+        <Logo variant="white" />
+        <BackButton className={styles.back} />
+      </nav>
+      <main className={styles.form}>
         <QuestionForm
           questionnaire={context.questionnaire}
           questionNumber={context.questionNumber}
@@ -100,7 +102,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
           nextUrl={nextUrl}
           isLast={isLast}
         />
-      </div>
+      </main>
     </>
   );
 }

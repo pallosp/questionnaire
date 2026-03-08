@@ -122,7 +122,9 @@ export function Results({ config }: ResultsProps) {
         )}
       </p>
 
-      <QuickLinks questionnaires={completed} />
+      <nav>
+        <QuickLinks questionnaires={completed} />
+      </nav>
 
       {completed.map((q) => (
         <QuestionnaireResults key={q.id} questionnaire={q} />

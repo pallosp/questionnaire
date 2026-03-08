@@ -49,10 +49,14 @@ export default async function Home() {
 
   return (
     <>
-      <Logo variant="black" />
-      <Title html={config.homepage.title} />
-      <Description text={config.homepage.description} />
-      <Questionnaires items={config.questionnaires} />
+      <nav>
+        <Logo variant="black" />
+      </nav>
+      <main>
+        <Title html={config.homepage.title} />
+        <Description text={config.homepage.description} />
+        <Questionnaires items={config.questionnaires} />
+      </main>
     </>
   );
 }

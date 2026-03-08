@@ -8,11 +8,15 @@ export default async function ResultsPage() {
   const config = await getConfig();
 
   return (
-    <div>
-      <Logo variant="black" />
-      <HomeButton />
-      <h1>{config.questionnaire.results.title}</h1>
-      <Results config={config} />
-    </div>
+    <>
+      <nav>
+        <Logo variant="black" />
+        <HomeButton />
+      </nav>
+      <main>
+        <h1>{config.questionnaire.results.title}</h1>
+        <Results config={config} />
+      </main>
+    </>
   );
 }

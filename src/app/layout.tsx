@@ -79,7 +79,7 @@ export default async function RootLayout({
       <body className={`${ibmPlexSerif.variable} ${sansation.variable}`}>
         <div className={styles.layout}>
           <HeaderBlock />
-          <main className={styles.main}>{children}</main>
+          <div className={styles['page-container']}>{children}</div>
           <Footer
             copyright={config.questionnaire.footer.copyright}
             links={config.questionnaire.footer.links}

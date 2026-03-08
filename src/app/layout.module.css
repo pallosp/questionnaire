@@ -15,7 +15,7 @@
   background-color: var(--primary-50);
 }
 
-.main {
+.page-container {
   display: flex;
   flex: 1;
   flex-direction: column;
