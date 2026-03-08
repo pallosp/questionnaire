@@ -3,6 +3,7 @@
 import { StateCreator } from 'zustand';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { useShallow } from 'zustand/shallow';
 
 import { needsFollowUpQuestion } from '@/lib/config';
 import { QuestionnaireConfig } from '@/types/config';
@@ -144,3 +145,33 @@ export const useIsComplete = (config: QuestionnaireConfig): boolean =>
 
 export const useQuestionnaireActions = () =>
   useQuestionnaireStore((state) => state.actions);
+
+export const useCompletedQuestionnaires = (
+  configs: QuestionnaireConfig[],
+): QuestionnaireConfig[] =>
+  useQuestionnaireStore(
+    useShallow((state) =>
+      configs.filter((config) => isComplete(state, config)),
+    ),
+  );
+
+export const useSavedAnswers = (
+  questionnaireId: string,
+): Record<number, Answer> =>
+  useQuestionnaireStore(
+    useShallow((state) => state.savedAnswers[questionnaireId] || {}),
+  );
+
+export const useAverageRating = (questionnaireId: string): number =>
+  useQuestionnaireStore((state) => {
+    const answers = state.savedAnswers[questionnaireId];
+    if (!answers) return 0;
+
+    let total = 0,
+      count = 0;
+    for (const qNum in answers) {
+      total += answers[qNum].rating;
+      count++;
+    }
+    return count > 0 ? total / count : 0;
+  });
