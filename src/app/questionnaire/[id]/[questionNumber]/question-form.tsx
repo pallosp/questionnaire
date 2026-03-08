@@ -16,12 +16,17 @@ import { QuestionnaireConfig } from '@/types/config';
 import styles from './question-form.module.css';
 import { RatingGroup } from './rating-group';
 
-interface SubmitButtonProps {
+interface NextButtonProps {
   disabled: boolean;
   nextUrl: string;
 }
 
-const NextButton = ({ disabled, nextUrl }: SubmitButtonProps) => {
+interface FinishButtonProps {
+  disabled: boolean;
+  config: QuestionnaireConfig;
+}
+
+const NextButton = ({ disabled, nextUrl }: NextButtonProps) => {
   const router = useRouter();
   const handleClick = () => router.push(nextUrl);
 
@@ -39,11 +44,7 @@ const NextButton = ({ disabled, nextUrl }: SubmitButtonProps) => {
   );
 };
 
-const FinishAndSaveButton = ({
-  disabled,
-  nextUrl,
-  config,
-}: SubmitButtonProps & { config: QuestionnaireConfig }) => {
+const FinishAndSaveButton = ({ disabled, config }: FinishButtonProps) => {
   const router = useRouter();
   const { save } = useQuestionnaireActions();
   const isStoreComplete = useIsComplete(config);
@@ -56,7 +57,7 @@ const FinishAndSaveButton = ({
       );
     }
     save();
-    router.push(nextUrl);
+    router.push(isStoreComplete ? '/results' : '/');
   };
 
   return (
@@ -217,11 +218,7 @@ export const QuestionForm = ({
 
       <div className={styles['bottom-actions']}>
         {isLast ? (
-          <FinishAndSaveButton
-            disabled={!isCompleteForm}
-            nextUrl={nextUrl}
-            config={config}
-          />
+          <FinishAndSaveButton disabled={!isCompleteForm} config={config} />
         ) : (
           <>
             <QuitButton />
