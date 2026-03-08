@@ -106,7 +106,8 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
   },
 });
 
-const useQuestionnaireStore = create<QuestionnaireState>()(
+/** @internal - test only */
+export const useQuestionnaireStore = create<QuestionnaireState>()(
   persist(stateImpl, {
     name: 'questionnaire-store',
     partialize: (state) => ({
