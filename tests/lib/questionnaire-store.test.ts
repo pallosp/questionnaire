@@ -76,7 +76,7 @@ describe('stateImpl', () => {
     it('persists draft', () => {
       store.getState().actions.start('q1');
       store.getState().actions.setAnswer(1, { rating: 42 });
-      store.getState().actions.save();
+      store.getState().actions.saveDraft();
 
       expect(store.getState().savedAnswers.q1[1].rating).toBe(42);
       expect(store.getState().draftId).toBeUndefined();
@@ -86,7 +86,7 @@ describe('stateImpl', () => {
     it('does nothing when no draft is present', () => {
       const saved = { q1: { 1: { rating: 42 } } };
       store.setState({ savedAnswers: saved });
-      store.getState().actions.save();
+      store.getState().actions.saveDraft();
       expect(store.getState().savedAnswers).toEqual(saved);
     });
   });
@@ -95,7 +95,7 @@ describe('stateImpl', () => {
     it('clears draft', () => {
       store.getState().actions.start('q1');
       store.getState().actions.setAnswer(1, { rating: 42 });
-      store.getState().actions.discard();
+      store.getState().actions.discardDraft();
 
       expect(store.getState().draftId).toBeUndefined();
       expect(store.getState().draftAnswers).toEqual({});
@@ -107,9 +107,43 @@ describe('stateImpl', () => {
 
       store.getState().actions.start('q1');
       store.getState().actions.setAnswer(1, { rating: 43 });
-      store.getState().actions.discard();
+      store.getState().actions.discardDraft();
 
       expect(store.getState().savedAnswers).toEqual(saved);
+    });
+  });
+
+  describe('clear()', () => {
+    it('clears saved answers', () => {
+      const saved = { q1: { 1: { rating: 3 } }, q2: { 1: { rating: 4 } } };
+      store.setState({ savedAnswers: saved });
+
+      store.getState().actions.clear('q1');
+
+      expect(store.getState().savedAnswers).toEqual({
+        q2: { 1: { rating: 4 } },
+      });
+    });
+
+    it('clears matching draft answers', () => {
+      store.getState().actions.start('q1');
+      store.getState().actions.setAnswer(1, { rating: 5 });
+
+      store.getState().actions.clear('q1');
+
+      expect(store.getState().savedAnswers).toEqual({});
+      expect(store.getState().draftId).toBeUndefined();
+      expect(store.getState().draftAnswers).toEqual({});
+    });
+
+    it('preserves not matching draft answers', () => {
+      store.getState().actions.start('q1');
+      store.getState().actions.setAnswer(1, { rating: 5 });
+
+      store.getState().actions.clear('q2');
+
+      expect(store.getState().draftId).toBe('q1');
+      expect(store.getState().draftAnswers).toEqual({ 1: { rating: 5 } });
     });
   });
 

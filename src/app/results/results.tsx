@@ -6,6 +6,7 @@ import {
   useAverageRating,
   useCompletedQuestionnaires,
   useIsStateLoaded,
+  useQuestionnaireActions,
   useSavedAnswers,
 } from '@/lib/questionnaire-store';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
@@ -92,14 +93,15 @@ interface ClearDataButtonProps {
   questionnaireId: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ClearDataButton({ questionnaireId }: ClearDataButtonProps) {
+  const { clear } = useQuestionnaireActions();
+
   return (
     <Button
       variant="primary"
       size="small"
       title="Clear data"
-      onClick={() => {}}
+      onClick={() => clear(questionnaireId)}
     />
   );
 }

@@ -46,7 +46,7 @@ const NextButton = ({ disabled, nextUrl }: NextButtonProps) => {
 
 const FinishAndSaveButton = ({ disabled, config }: FinishButtonProps) => {
   const router = useRouter();
-  const { save } = useQuestionnaireActions();
+  const { saveDraft } = useQuestionnaireActions();
   const isStoreComplete = useIsComplete(config);
 
   const handleClick = () => {
@@ -56,7 +56,7 @@ const FinishAndSaveButton = ({ disabled, config }: FinishButtonProps) => {
           'Please open the questionnaire again to answer them.',
       );
     }
-    save();
+    saveDraft();
     router.push(isStoreComplete ? '/results' : '/');
   };
 
@@ -74,7 +74,7 @@ const FinishAndSaveButton = ({ disabled, config }: FinishButtonProps) => {
 
 const QuitButton = () => {
   const router = useRouter();
-  const { discard } = useQuestionnaireActions();
+  const { discardDraft } = useQuestionnaireActions();
   return (
     <Button
       type="button"
@@ -83,7 +83,7 @@ const QuitButton = () => {
       size="medium"
       title="Quit"
       onClick={() => {
-        discard();
+        discardDraft();
         router.push('/');
       }}
     />
@@ -92,7 +92,7 @@ const QuitButton = () => {
 
 const QuitAndSaveButton = () => {
   const router = useRouter();
-  const { save } = useQuestionnaireActions();
+  const { saveDraft } = useQuestionnaireActions();
   return (
     <Button
       type="button"
@@ -101,7 +101,7 @@ const QuitAndSaveButton = () => {
       size="medium"
       title="Quit & Save"
       onClick={() => {
-        save();
+        saveDraft();
         router.push('/');
       }}
     />

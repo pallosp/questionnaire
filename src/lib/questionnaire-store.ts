@@ -34,10 +34,13 @@ export interface QuestionnaireState {
     setAnswer: (questionNumber: number, answer: Answer) => void;
 
     /** Saves the draft answers. */
-    save: () => void;
+    saveDraft: () => void;
 
     /** Discards the draft answers. */
-    discard: () => void;
+    discardDraft: () => void;
+
+    /** Clears the both saved and the draft answers for a questionnaire. */
+    clear: (questionnaireId: string) => void;
   };
 }
 
@@ -86,7 +89,7 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
       }));
     },
 
-    save: () => {
+    saveDraft: () => {
       set((state) => {
         const { draftId, draftAnswers, savedAnswers } = state;
         if (!draftId) return state;
@@ -102,10 +105,27 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
       });
     },
 
-    discard: () => {
+    discardDraft: () => {
       set({
         draftAnswers: {},
         draftId: undefined,
+      });
+    },
+
+    clear: (questionnaireId: string) => {
+      set((state) => {
+        const newSavedAnswers = { ...state.savedAnswers };
+        delete newSavedAnswers[questionnaireId];
+
+        if (state.draftId === questionnaireId) {
+          return {
+            savedAnswers: newSavedAnswers,
+            draftId: undefined,
+            draftAnswers: {},
+          };
+        }
+
+        return { savedAnswers: newSavedAnswers };
       });
     },
   },
