@@ -5,6 +5,7 @@ import {
   Answer,
   useAverageRating,
   useCompletedQuestionnaires,
+  useIsStateLoaded,
   useSavedAnswers,
 } from '@/lib/questionnaire-store';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
@@ -144,7 +145,10 @@ export interface ResultsProps {
 }
 
 export function Results({ config }: ResultsProps) {
+  const loaded = useIsStateLoaded();
   const completed = useCompletedQuestionnaires(config.questionnaires);
+
+  if (!loaded) return null;
 
   return (
     <>
