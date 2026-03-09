@@ -32,10 +32,13 @@ A React/Next.js application for displaying and filling out questionnaires.
 
 ### Styling
 
+- **No UI libraries**: All components (buttons, rating groups, radio options,
+  cards) are built from scratch.
 - **CSS modules**: Component-scoped styling without external UI frameworks. Uses
   modern CSS features including nested selectors, CSS variables, `@media`
   queries, and modern color syntax.
-- **Material Symbols**: Web font for iconography.
+- **Fonts and icons**: Uses custom web fonts, along with Google Material Symbols
+  for iconography.
 
 ### Testing
 
