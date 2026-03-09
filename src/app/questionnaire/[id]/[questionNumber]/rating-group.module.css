@@ -36,9 +36,18 @@
   &::after {
     content: attr(value);
     font:
-      bold 20px var(--title-font),
-      sans-serif;
+      bold 1.125rem/1 var(--title-font),
+      sans-serif; /* 18px */
+
     color: var(--gray-90);
+
+    @media (width >= 768px) {
+      font-size: 1.25rem; /* 20px */
+    }
+
+    @media (width >= 1280px) {
+      font-size: 1.5rem; /* 24px */
+    }
   }
 
   &:focus-visible {

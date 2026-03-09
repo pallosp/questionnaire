@@ -80,26 +80,28 @@ a {
   }
 }
 
-/* TODO: consolidate the title typography styles */
-
-.text-title-sm {
-  font: 0.75rem/1.4 var(--title-font);
-}
-
-.text-title-md {
-  font: 0.875rem/1.4 var(--title-font);
-}
-
-.text-title-lg {
-  font: 1.25rem/1.2 var(--title-font);
-}
-
 .text-title-xl {
-  font: 2rem/1.2 var(--title-font);
+  font: 2rem/1.2 var(--title-font); /* 32px */
   letter-spacing: -3%;
+
+  @media (width >= 768px) {
+    font-size: 2.125rem; /* 34px */
+  }
+
+  @media (width >= 1280px) {
+    font-size: 2.25rem; /* 36px */
+  }
 }
 
 .text-title-xxl {
-  font: 3.5rem/1.2 var(--title-font);
+  font: 3.5rem/1.2 var(--title-font); /* 56px */
   letter-spacing: -3%;
+
+  @media (width >= 768px) {
+    font-size: 3.75rem; /* 60px */
+  }
+
+  @media (width >= 1280px) {
+    font-size: 4rem; /* 64px */
+  }
 }
