@@ -1,12 +1,20 @@
 'use client';
 
 import { Card } from '@/components/card/card';
-import { useIsComplete, useIsStateLoaded } from '@/lib/questionnaire-store';
+import {
+  useCompletedQuestionnaires,
+  useIsComplete,
+  useIsStateLoaded,
+} from '@/lib/questionnaire-store';
 import { QuestionnaireConfig } from '@/types/config';
 
-import styles from './page.module.css';
+import styles from './questionnaire-grid.module.css';
 
-function QuestionnaireCard({ config }: { config: QuestionnaireConfig }) {
+interface QuestionnaireCardProps {
+  config: QuestionnaireConfig;
+}
+
+function QuestionnaireCard({ config }: QuestionnaireCardProps) {
   const isComplete = useIsComplete(config);
 
   return (
@@ -34,19 +42,45 @@ function QuestionnaireCard({ config }: { config: QuestionnaireConfig }) {
   );
 }
 
-export function QuestionnaireGrid({
-  questionnaires,
-}: {
+interface ResultsCardProps {
+  count: number;
+}
+
+function ResultsCard({ count }: ResultsCardProps) {
+  return (
+    <div className={styles.card}>
+      <Card
+        title="See results"
+        footerText={`${count} Questionnaire(s) completed`}
+        footerIcon="list_alt_check"
+        href="/results"
+        style={
+          {
+            '--card-bg': 'var(--primary-50)',
+            '--card-bg-hover': 'var(--primary-20)',
+          } as React.CSSProperties
+        }
+      />
+    </div>
+  );
+}
+
+export interface QuestionnaireGridProps {
   questionnaires: QuestionnaireConfig[];
-}) {
+}
+
+export function QuestionnaireGrid({ questionnaires }: QuestionnaireGridProps) {
   const loaded = useIsStateLoaded();
+  const completedCount = useCompletedQuestionnaires(questionnaires).length;
+
   if (!loaded) return null;
 
   return (
-    <div className={styles.questionnaires}>
+    <div className={styles.grid}>
       {questionnaires.map((q) => (
         <QuestionnaireCard key={q.id} config={q} />
       ))}
+      {completedCount > 0 && <ResultsCard count={completedCount} />}
     </div>
   );
 }
