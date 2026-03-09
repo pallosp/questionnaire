@@ -1,4 +1,3 @@
-import { IconLinkButton } from '@/components/button/icon-link-button';
 import { Card } from '@/components/card/card';
 import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
@@ -28,15 +27,15 @@ function Questionnaires({ items }: { items: QuestionnaireConfig[] }) {
           <Card
             title={q.title}
             description={q.description}
-            footer={`${q.questions.length} Question(s)`}
-            button={
-              <IconLinkButton
-                icon="keyboard_double_arrow_right"
-                href={`/questionnaire/${q.id}/1`}
-                ariaLabel="View questionnaire"
-              />
+            footerText={`${q.questions.length} Question(s)`}
+            footerIcon="keyboard_double_arrow_right"
+            href={`/questionnaire/${q.id}/1`}
+            style={
+              {
+                '--card-bg': q.color,
+                '--card-bg-hover': `rgb(from var(--card-bg) r g b / 80%);`,
+              } as React.CSSProperties
             }
-            style={{ '--card-bg': q.color } as React.CSSProperties}
           />
         </div>
       ))}
