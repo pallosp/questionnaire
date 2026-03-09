@@ -38,7 +38,6 @@
     font:
       bold 1.125rem/1 var(--title-font),
       sans-serif; /* 18px */
-
     color: var(--gray-90);
 
     @media (width >= 768px) {
