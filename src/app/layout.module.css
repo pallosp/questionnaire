@@ -13,6 +13,10 @@
   height: 40px;
 
   background-color: var(--primary-50);
+
+  @media (width >= 1280px) {
+    width: 50%;
+  }
 }
 
 .page-container {
@@ -27,13 +31,14 @@
   flex-direction: column;
   gap: 12px 80px;
 
-  width: fit-content;
+  width: 70%;
 
   /* TODO: Should the horizontal padding be less than the page padding on wide
      screens, as in Figma? */
   padding: 32px var(--page-padding);
 
   color: white;
+  white-space: nowrap;
 
   background-color: #1e1e1f;
 
@@ -49,7 +54,12 @@
 
   @media (width >= 768px) {
     flex-direction: row;
+    justify-content: space-between;
     padding-top: 16px;
     padding-bottom: 16px;
+  }
+
+  @media (width >= 1280px) {
+    width: 50%;
   }
 }

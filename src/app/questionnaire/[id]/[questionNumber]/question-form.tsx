@@ -201,20 +201,22 @@ export const QuestionForm = ({
 
   return (
     <form onSubmit={(e) => e.preventDefault()} className={styles.form}>
-      <p className={`${styles['sup-title']} text-body-sm`}>{supTitle}</p>
-      <h1 className={`${styles.title} text-title-xl`}>{question.question}</h1>
+      <div className={styles['top-content']}>
+        <p className={`${styles['sup-title']} text-body-sm`}>{supTitle}</p>
+        <h1 className={`${styles.title} text-title-xl`}>{question.question}</h1>
 
-      <RatingSection rating={rating} onChange={handleRatingChange} />
+        <RatingSection rating={rating} onChange={handleRatingChange} />
 
-      {showFollowUp && (
-        <FollowUpSection
-          options={question['follow-up-options']!}
-          selection={followUpSelection}
-          onChange={handleFollowUpChange}
-        />
-      )}
+        {showFollowUp && (
+          <FollowUpSection
+            options={question['follow-up-options']!}
+            selection={followUpSelection}
+            onChange={handleFollowUpChange}
+          />
+        )}
 
-      {!isLast && <NextButton disabled={!isCompleteForm} nextUrl={nextUrl} />}
+        {!isLast && <NextButton disabled={!isCompleteForm} nextUrl={nextUrl} />}
+      </div>
 
       <div className={styles['bottom-actions']}>
         {isLast ? (

@@ -9,6 +9,8 @@ import {
 } from '@/lib/questionnaire-store';
 import { Config, Question, QuestionnaireConfig } from '@/types/config';
 
+import styles from './results.module.css';
+
 interface QuickLinksProps {
   questionnaires: QuestionnaireConfig[];
 }
@@ -86,7 +88,7 @@ function QuestionnaireResults({ questionnaire }: QuestionnaireResultsProps) {
   const score = +average.toFixed(2);
 
   return (
-    <section id={questionnaire.id}>
+    <section id={questionnaire.id} className={styles['results-section']}>
       <div>
         <h2>{questionnaire.title}</h2>
         <ClearDataButton questionnaireId={questionnaire.id} />

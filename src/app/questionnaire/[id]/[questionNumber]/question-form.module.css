@@ -4,6 +4,10 @@
   flex-direction: column;
 }
 
+.top-content {
+  max-width: 580px; /* 10 times (50px button + 8px gap) */
+}
+
 .sup-title {
   margin-bottom: 1.25rem; /* 20px */
 }
