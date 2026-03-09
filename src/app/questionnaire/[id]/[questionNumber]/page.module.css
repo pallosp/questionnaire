@@ -1,6 +1,9 @@
 .back {
   align-self: flex-start;
-  margin-bottom: 2.5rem; /* 40px */
+}
+
+.nav {
+  margin-bottom: var(--space-3xl-fixed);
 }
 
 .form {

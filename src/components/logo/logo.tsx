@@ -14,7 +14,14 @@ export function Logo({ variant }: LogoProps) {
   return (
     <div className={styles.container}>
       <Link href="/">
-        <Image src={logoSrc} alt="Logo" width={40} height={52} priority />
+        <Image
+          src={logoSrc}
+          alt="Logo"
+          className={styles.logo}
+          width={60}
+          height={78}
+          priority
+        />
       </Link>
     </div>
   );

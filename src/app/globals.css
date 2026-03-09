@@ -11,14 +11,66 @@
   --primary-50: #ff0;
   --background: linear-gradient(to right, var(--gray-30), var(--gray-50));
   --foreground: var(--gray-80);
+  --focus-outline-color: #007aff;
+
+  /* TODO: Should they have px or rem units? */
   --page-padding: 32px;
+  --space-xxs-fixed: 4px;
+  --space-xs: 8px;
+  --space-xs-fixed: 8px;
+  --space-sm: 12px;
+  --space-md-fixed: 16px;
+  --space-md: 16px;
+  --space-lg: 20px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-2xl-fixed: 40px;
+  --space-3xl-fixed: 64px;
+  --logo-width: 40px;
+  --logo-height: 52px;
+  --radio-size: 24px;
+  --radio-dot-size: 12px;
+  --radio-dot-hover-size: 8px;
+  --button-height-sm: 28px;
+  --button-height-md: 38px;
+  --button-height-lg: 50px;
+  --icon-button-size: var(--button-height-lg);
+  --font-size-sm: 0.75rem; /* 12px */
+  --font-size-md: 0.875rem; /* 14px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --font-size-xl: 2rem; /* 32px */
+  --font-size-xxl: 3.5rem; /* 56px */
 
   @media (width >= 768px) {
     --page-padding: 44px;
+    --space-xs: 12px;
+    --space-sm: 16px;
+    --space-md: 20px;
+    --space-lg: 24px;
+    --space-xl: 36px;
+    --space-2xl: 44px;
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-md: 1rem; /* 16px */
+    --font-size-lg: 1.25rem; /* 20px */
+    --font-size-xl: 2.125rem; /* 34px */
+    --font-size-xxl: 3.75rem; /* 60px */
   }
 
   @media (width >= 1280px) {
     --page-padding: 64px;
+    --space-xs: 16px;
+    --space-sm: 20px;
+    --space-md: 24px;
+    --space-lg: 28px;
+    --space-xl: 40px;
+    --space-2xl: 48px;
+    --logo-width: 60px;
+    --logo-height: 78px;
+    --font-size-sm: 1rem; /* 16px */
+    --font-size-md: 1.125rem; /* 18px */
+    --font-size-lg: 1.5rem; /* 24px */
+    --font-size-xl: 2.25rem; /* 36px */
+    --font-size-xxl: 4rem; /* 64px */
   }
 }
 
@@ -53,55 +105,19 @@ a {
 }
 
 .text-body-sm {
-  font: 0.75rem/1.4 var(--body-font); /* 12px */
-
-  /* tablet */
-  @media (width >= 768px) {
-    font-size: 0.875rem; /* 14px */
-  }
-
-  /* desktop */
-  @media (width >= 1280px) {
-    font-size: 1rem; /* 16px */
-  }
+  font: var(--font-size-sm)/1.4 var(--body-font);
 }
 
 .text-body-md {
-  font: 0.875rem/1.4 var(--body-font); /* 14px */
-
-  /* tablet */
-  @media (width >= 768px) {
-    font-size: 1rem; /* 16px */
-  }
-
-  /* desktop */
-  @media (width >= 1280px) {
-    font-size: 1.125rem; /* 18px */
-  }
+  font: var(--font-size-md)/1.4 var(--body-font);
 }
 
 .text-title-xl {
-  font: 2rem/1.2 var(--title-font); /* 32px */
+  font: var(--font-size-xl)/1.2 var(--title-font);
   letter-spacing: -3%;
-
-  @media (width >= 768px) {
-    font-size: 2.125rem; /* 34px */
-  }
-
-  @media (width >= 1280px) {
-    font-size: 2.25rem; /* 36px */
-  }
 }
 
 .text-title-xxl {
-  font: 3.5rem/1.2 var(--title-font); /* 56px */
+  font: var(--font-size-xxl)/1.2 var(--title-font);
   letter-spacing: -3%;
-
-  @media (width >= 768px) {
-    font-size: 3.75rem; /* 60px */
-  }
-
-  @media (width >= 1280px) {
-    font-size: 4rem; /* 64px */
-  }
 }

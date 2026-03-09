@@ -2,7 +2,7 @@
   cursor: pointer;
 
   display: flex;
-  gap: 0.5rem;
+  gap: var(--space-xs-fixed);
   align-items: center;
 
   width: fit-content;
@@ -18,8 +18,8 @@
     align-items: center;
     justify-content: center;
 
-    width: 1.5rem;
-    height: 1.5rem;
+    width: var(--radio-size);
+    height: var(--radio-size);
     border-radius: 50%;
 
     appearance: none;
@@ -39,18 +39,18 @@
     }
 
     &:checked {
-      --dot-size: 0.75rem;
+      --dot-size: var(--radio-dot-size);
 
       background: var(--primary-50);
     }
 
     &:focus-visible {
-      outline: 2px solid #007aff;
+      outline: 2px solid var(--focus-outline-color);
     }
   }
 
   &:hover input:not(:checked) {
-    --dot-size: 0.5rem;
+    --dot-size: var(--radio-dot-hover-size);
 
     background: var(--primary-20);
   }

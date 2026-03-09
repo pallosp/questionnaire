@@ -1,5 +1,6 @@
 .title {
-  margin-bottom: 40px;
+  max-width: 640px;
+  margin-bottom: var(--space-2xl);
 
   & mark {
     color: var(--primary-50);
@@ -8,5 +9,5 @@
 }
 
 .description {
-  margin-bottom: 40px;
+  margin-bottom: var(--space-md);
 }

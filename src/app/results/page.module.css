@@ -1,7 +1,7 @@
 .nav {
-  margin-bottom: 40px;
+  margin-bottom: var(--space-2xl);
 }
 
 .title {
-  margin-bottom: 40px;
+  margin-bottom: var(--space-2xl);
 }

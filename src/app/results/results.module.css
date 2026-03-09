@@ -1,13 +1,13 @@
 .nav {
   & .label {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-lg);
   }
 
   & .links {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 64px;
+    gap: var(--space-xs-fixed);
+    margin-bottom: var(--space-3xl-fixed);
   }
 }
 
@@ -17,7 +17,6 @@
   & .header {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
   }
 
   & .header-left {
@@ -35,14 +34,14 @@
 }
 
 .question {
-  margin-top: 40px;
+  margin-top: var(--space-2xl-fixed);
 
   & .question-number {
-    margin-bottom: 16px;
+    margin-bottom: var(--space-md);
   }
 
   & .question-text {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-lg);
   }
 
   & hr {
@@ -53,9 +52,9 @@
 
 .answer {
   display: flex;
-  gap: 24px;
+  gap: var(--space-md);
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: var(--space-2xl-fixed);
 
   & .score {
     display: inline-flex;
@@ -63,29 +62,21 @@
     align-items: center;
     justify-content: center;
 
-    width: 50px;
-    height: 50px;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
     border-radius: 50%;
 
     /* TODO: Unify with the rating buttons */
     font:
-      bold 1.125rem/1 var(--title-font),
-      sans-serif; /* 18px */
+      bold var(--font-size-lg)/1 var(--title-font),
+      sans-serif;
     color: var(--gray-90);
 
     background: var(--primary-50);
-
-    @media (width >= 768px) {
-      font-size: 1.25rem; /* 20px */
-    }
-
-    @media (width >= 1280px) {
-      font-size: 1.5rem; /* 24px */
-    }
   }
 
   & .follow-up-label {
-    margin-bottom: 4px;
+    margin-bottom: var(--space-xxs-fixed);
     font-weight: 600;
   }
 }

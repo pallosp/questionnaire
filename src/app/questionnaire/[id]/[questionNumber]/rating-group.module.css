@@ -1,11 +1,11 @@
 .group {
-  --button-gap: 8px;
+  --button-gap: var(--space-xs-fixed);
 
   border: none;
 }
 
 .legend {
-  margin-bottom: 24px;
+  margin-bottom: var(--space-lg);
   color: white;
 }
 
@@ -18,8 +18,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 50px;
-  height: 50px;
+  width: var(--icon-button-size);
+  height: var(--icon-button-size);
   border-radius: 50%;
 
   appearance: none;
@@ -36,21 +36,13 @@
   &::after {
     content: attr(value);
     font:
-      bold 1.125rem/1 var(--title-font),
-      sans-serif; /* 18px */
+      bold var(--font-size-lg)/1 var(--title-font),
+      sans-serif;
     color: var(--gray-90);
-
-    @media (width >= 768px) {
-      font-size: 1.25rem; /* 20px */
-    }
-
-    @media (width >= 1280px) {
-      font-size: 1.5rem; /* 24px */
-    }
   }
 
   &:focus-visible {
-    outline: 2px solid #007aff;
+    outline: 2px solid var(--focus-outline-color);
   }
 }
 

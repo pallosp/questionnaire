@@ -10,7 +10,7 @@
   right: 0;
 
   width: 30%;
-  height: 40px;
+  height: var(--space-2xl-fixed);
 
   background-color: var(--primary-50);
 
@@ -29,13 +29,13 @@
 .footer {
   display: flex;
   flex-direction: column;
-  gap: 12px 80px;
+  gap: var(--space-sm);
 
   width: 70%;
 
   /* TODO: Should the horizontal padding be less than the page padding on wide
      screens, as in Figma? */
-  padding: 32px var(--page-padding);
+  padding: var(--page-padding);
 
   color: white;
   white-space: nowrap;
@@ -55,8 +55,8 @@
   @media (width >= 768px) {
     flex-direction: row;
     justify-content: space-between;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding-top: var(--space-md-fixed);
+    padding-bottom: var(--space-md-fixed);
   }
 
   @media (width >= 1280px) {

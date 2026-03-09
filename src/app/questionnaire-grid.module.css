@@ -1,17 +1,13 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
+
+  /* TODO: fix the gap, which grows >24px on large screens */
+  gap: var(--space-md);
   justify-content: start;
 
   @media (width >= 768px) {
     grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
-    gap: 20px;
-  }
-
-  /* TODO: the gap mustn't grow beyond 24px on wide screens */
-  @media (width >= 1024px) {
-    gap: 24px;
   }
 }
 

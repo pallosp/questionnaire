@@ -1,3 +1,5 @@
-.container {
-  margin-bottom: 64px;
+.logo {
+  width: var(--logo-width);
+  height: var(--logo-height);
+  margin-bottom: var(--space-3xl-fixed);
 }

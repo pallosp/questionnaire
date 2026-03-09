@@ -90,7 +90,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
   return (
     <>
       <Background variant={context.questionnaire['background-type']} />
-      <nav>
+      <nav className={styles.nav}>
         <Logo variant="white" />
         <BackButton className={styles.back} />
       </nav>
