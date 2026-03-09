@@ -14,6 +14,9 @@ export interface Answer {
 }
 
 export interface QuestionnaireState {
+  /** Whether the state has been loaded from storage */
+  isLoaded: boolean;
+
   /** questionnaireId -> { questionNumber -> Answer } */
   savedAnswers: Record<string, Record<number, Answer>>;
 
@@ -58,6 +61,7 @@ const isCompleteHelper = (
 
 /** @internal - test only */
 export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
+  isLoaded: false,
   savedAnswers: {},
   draftAnswers: {},
   draftId: undefined,
@@ -114,8 +118,26 @@ export const useQuestionnaireStore = create<QuestionnaireState>()(
     partialize: (state) => ({
       savedAnswers: state.savedAnswers,
     }),
+    onRehydrateStorage: () => (state) => {
+      if (state) {
+        state.isLoaded = true;
+      }
+    },
   }),
 );
+
+export const useIsStateLoaded = (): boolean =>
+  useQuestionnaireStore((state) => state.isLoaded);
+
+export const useAnswer = (
+  questionnaireId: string,
+  questionNumber: number,
+): Answer | undefined =>
+  useQuestionnaireStore((state) =>
+    state.draftId === questionnaireId
+      ? state.draftAnswers[questionNumber]
+      : state.savedAnswers[questionnaireId]?.[questionNumber],
+  );
 
 /** @internal - test only */
 export const isComplete = (
@@ -129,16 +151,6 @@ export const isComplete = (
 
   return Boolean(answers) && isCompleteHelper(config, answers);
 };
-
-export const useAnswer = (
-  questionnaireId: string,
-  questionNumber: number,
-): Answer | undefined =>
-  useQuestionnaireStore((state) =>
-    state.draftId === questionnaireId
-      ? state.draftAnswers[questionNumber]
-      : state.savedAnswers[questionnaireId]?.[questionNumber],
-  );
 
 export const useIsComplete = (config: QuestionnaireConfig): boolean =>
   useQuestionnaireStore((state) => isComplete(state, config));

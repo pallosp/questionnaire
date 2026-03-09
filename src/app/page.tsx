@@ -1,9 +1,8 @@
-import { Card } from '@/components/card/card';
 import { Logo } from '@/components/logo/logo';
 import { getConfig } from '@/lib/config';
-import { QuestionnaireConfig } from '@/types/config';
 
 import styles from './page.module.css';
+import { QuestionnaireGrid } from './questionnaire-grid';
 
 function Title({ html }: { html: string }) {
   // TODO: Should the title be sanitized, e.g. with DOMPurify?
@@ -19,30 +18,6 @@ function Description({ text }: { text: string }) {
   return <p className={`text-body-md ${styles.description}`}>{text}</p>;
 }
 
-function Questionnaires({ items }: { items: QuestionnaireConfig[] }) {
-  return (
-    <div className={styles.questionnaires}>
-      {items.map((q) => (
-        <div key={q.id} className={styles.card}>
-          <Card
-            title={q.title}
-            description={q.description}
-            footerText={`${q.questions.length} Question(s)`}
-            footerIcon="keyboard_double_arrow_right"
-            href={`/questionnaire/${q.id}/1`}
-            style={
-              {
-                '--card-bg': q.color,
-                '--card-bg-hover': `rgb(from var(--card-bg) r g b / 80%);`,
-              } as React.CSSProperties
-            }
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default async function Home() {
   const config = await getConfig();
 
@@ -54,7 +29,7 @@ export default async function Home() {
       <main>
         <Title html={config.homepage.title} />
         <Description text={config.homepage.description} />
-        <Questionnaires items={config.questionnaires} />
+        <QuestionnaireGrid questionnaires={config.questionnaires} />
       </main>
     </>
   );
