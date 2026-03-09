@@ -12,50 +12,76 @@ import { Config, Question, QuestionnaireConfig } from '@/types/config';
 import styles from './results.module.css';
 
 interface QuickLinksProps {
+  label: string;
   questionnaires: QuestionnaireConfig[];
 }
 
-function QuickLinks({ questionnaires }: QuickLinksProps) {
+function QuickLinks({ label, questionnaires }: QuickLinksProps) {
   return (
-    <div>
-      {questionnaires.map((q) => (
-        <LinkButton
-          key={q.id}
-          variant="primary"
-          size="medium"
-          title={q.title}
-          href={`#${q.id}`}
-        />
-      ))}
+    <nav className={styles.nav}>
+      <p className={styles.label}>
+        {label.replace('{number}', questionnaires.length.toString())}
+      </p>
+
+      <div className={styles.links}>
+        {questionnaires.map((q) => (
+          <LinkButton
+            key={q.id}
+            variant="primary"
+            size="medium"
+            title={q.title}
+            href={`#${q.id}`}
+          />
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+interface AnswerBlockProps {
+  rating: number;
+  selectedFollowUp?: string;
+}
+
+function AnswerBlock({ rating, selectedFollowUp }: AnswerBlockProps) {
+  return (
+    <div className={styles.answer}>
+      <span className={styles.score}>{rating}</span>
+      <div>
+        {selectedFollowUp && (
+          <>
+            <p className={`${styles['follow-up-label']} text-body-sm`}>
+              Follow up option
+            </p>
+            <p className="text-body-md">{selectedFollowUp}</p>
+          </>
+        )}
+      </div>
     </div>
   );
 }
 
-interface AnswerViewProps {
+interface QuestionViewProps {
   questionNumber: number;
   question: Question;
   answer: Answer;
 }
 
-function AnswerView({ questionNumber, question, answer }: AnswerViewProps) {
+function QuestionView({ questionNumber, question, answer }: QuestionViewProps) {
   const followUpOption =
     answer.followUpSelection !== undefined
       ? question['follow-up-options']?.[answer.followUpSelection]
       : undefined;
 
   return (
-    <div>
-      <p>Question {questionNumber}</p>
-      <p>{question.question}</p>
-      <p>({answer.rating})</p>
-
-      {followUpOption && (
-        <div>
-          <p>Follow up option</p>
-          <p>{followUpOption}</p>
-        </div>
-      )}
-
+    <div className={styles.question}>
+      <p className={`${styles['question-number']} text-body-sm`}>
+        Question {questionNumber}
+      </p>
+      <p className={`${styles['question-text']} text-title-xl`}>
+        {question.question}
+      </p>
+      <AnswerBlock rating={answer.rating} selectedFollowUp={followUpOption} />
       <hr />
     </div>
   );
@@ -88,16 +114,21 @@ function QuestionnaireResults({ questionnaire }: QuestionnaireResultsProps) {
   const score = +average.toFixed(2);
 
   return (
-    <section id={questionnaire.id} className={styles['results-section']}>
-      <div>
-        <h2>{questionnaire.title}</h2>
+    <section id={questionnaire.id} className={styles.questionnaire}>
+      <div className={styles.header}>
+        <div className={styles['header-left']}>
+          <h2 className={`${styles.title} text-title-xl`}>
+            {questionnaire.title}
+          </h2>
+          <span className={`${styles['total-score']} text-body-md`}>
+            Score: {score}
+          </span>
+        </div>
         <ClearDataButton questionnaireId={questionnaire.id} />
       </div>
 
-      <p>Score: {score}</p>
-
       {questionnaire.questions.map((question, index) => (
-        <AnswerView
+        <QuestionView
           key={index}
           questionNumber={index + 1}
           question={question}
@@ -117,16 +148,10 @@ export function Results({ config }: ResultsProps) {
 
   return (
     <>
-      <p>
-        {config.questionnaire.results.description.replace(
-          '{number}',
-          completed.length.toString(),
-        )}
-      </p>
-
-      <nav>
-        <QuickLinks questionnaires={completed} />
-      </nav>
+      <QuickLinks
+        label={config.questionnaire.results.description}
+        questionnaires={completed}
+      />
 
       {completed.map((q) => (
         <QuestionnaireResults key={q.id} questionnaire={q} />

@@ -16,6 +16,11 @@ const ibmPlexSerif = localFont({
       weight: '400',
       style: 'normal',
     },
+    {
+      path: '../../public/fonts/IBM_Plex_Serif/IBMPlexSerif-SemiBold.ttf',
+      weight: '600',
+      style: 'normal',
+    },
   ],
   variable: '--font-ibm-plex-serif',
 });

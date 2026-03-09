@@ -1,3 +1,92 @@
-.results-section {
+.nav {
+  & .label {
+    margin-bottom: 20px;
+  }
+
+  & .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 64px;
+  }
+}
+
+.questionnaire {
   max-width: 900px;
+
+  & .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  & .header-left {
+    flex: 1;
+  }
+
+  & .title {
+    color: var(--primary-50);
+  }
+
+  & .total-score {
+    font-weight: 600;
+    color: var(--gray-50);
+  }
+}
+
+.question {
+  margin-top: 40px;
+
+  & .question-number {
+    margin-bottom: 16px;
+  }
+
+  & .question-text {
+    margin-bottom: 20px;
+  }
+
+  & hr {
+    border: none;
+    border-top: 1px solid var(--gray-20);
+  }
+}
+
+.answer {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 40px;
+
+  & .score {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    /* TODO: Unify with the rating buttons */
+    font:
+      bold 1.125rem/1 var(--title-font),
+      sans-serif; /* 18px */
+
+    color: var(--gray-90);
+
+    background: var(--primary-50);
+
+    @media (width >= 768px) {
+      font-size: 1.25rem; /* 20px */
+    }
+
+    @media (width >= 1280px) {
+      font-size: 1.5rem; /* 24px */
+    }
+  }
+
+  & .follow-up-label {
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
 }
