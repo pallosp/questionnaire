@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Link from 'next/link';
 
-import { getConfig } from '@/lib/config';
+import { BASE_PATH, getConfig } from '@/lib/config';
 import { FooterConfig, FooterLink } from '@/types/config';
 
 import styles from './layout.module.css';
@@ -80,7 +80,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <link rel="icon" href="/images/logo-black.svg" />
+      <link rel="icon" href={`${BASE_PATH}/images/logo-black.svg`} />
       <body className={`${ibmPlexSerif.variable} ${sansation.variable}`}>
         <div className={styles.layout}>
           <HeaderBlock />

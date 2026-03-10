@@ -2,6 +2,8 @@
 
 A React/Next.js application for displaying and filling out questionnaires.
 
+[View Demo](https://pallosp.github.io/questionnaire/)
+
 ## Features
 
 - **Dynamic questionnaires**: Conditional follow-up questions triggered by user
@@ -96,9 +98,14 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 - `npm run build` - Builds the application for server-side rendering.
 - `npm start` - Starts the production server on port 3000.
-- `npm run export` - Exports the application to `out/` for static hosting.
+- `npm run export` - Exports the application to `/out` for static hosting.
+- `npm run deploy` - Pushes a static build to GitHub Pages.
 - `npx serve out -p 3000` - Serves the exported static site on port 3000.
 
-**IMPORTANT**: For the default configuration URL, `npm run dev` must be running
-on port 3000 during `build` or `export` to provide the config data for
-prerendering.
+**IMPORTANT**: The dev server must be running on port 3000 during `build`,
+`export`, or `deploy` to provide the config data for prerendering. For GitHub
+Pages deployment, the correct base path must also be set:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/questionnaire npm run dev
+```

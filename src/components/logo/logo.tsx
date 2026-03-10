@@ -1,20 +1,19 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { BASE_PATH } from '@/lib/config';
+
 import styles from './logo.module.css';
 
-interface LogoProps {
+export interface LogoProps {
   variant: 'black' | 'white';
 }
 
 export function Logo({ variant }: LogoProps) {
-  const logoSrc =
-    variant === 'white' ? '/images/logo-white.svg' : '/images/logo-black.svg';
-
   return (
     <Link className={styles.link} href="/">
       <Image
-        src={logoSrc}
+        src={`${BASE_PATH}/images/logo-${variant}.svg`}
         alt="Logo"
         className={styles.logo}
         width={60}
