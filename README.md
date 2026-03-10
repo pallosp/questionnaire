@@ -83,10 +83,22 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 ## Available scripts
 
-- `npm run dev` - Starts the development server.
-- `npm run build` - Builds the application.
-- `npm start` - Starts the production server.
-- `npm run lint` - Runs ESLint and Stylelint.
-- `npm run lint:fix` - Attempts to automatically fix lint issues.
-- `npm run format` - Uses Prettier to format supported files.
+### Development
+
+- `npm run dev` - Starts the development server on port 3000.
+- `npm run kill` - Stops the process running on port 3000.
 - `npm run test` - Executes the test suite.
+- `npm run lint` - Runs ESLint and Stylelint.
+- `npm run lint:fix` - Automatically fixes lint issues.
+- `npm run format` - Formats code with Prettier.
+
+### Production
+
+- `npm run build` - Builds the application for server-side rendering.
+- `npm start` - Starts the production server on port 3000.
+- `npm run export` - Exports the application to `out/` for static hosting.
+- `npx serve out -p 3000` - Serves the exported static site on port 3000.
+
+**IMPORTANT**: For the default configuration URL, `npm run dev` must be running
+on port 3000 during `build` or `export` to provide the config data for
+prerendering.

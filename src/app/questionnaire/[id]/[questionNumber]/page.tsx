@@ -11,11 +11,24 @@ import { Background } from './background';
 import styles from './page.module.css';
 import { QuestionForm } from './question-form';
 
+interface PageParams {
+  id: string;
+  questionNumber: string;
+}
+
+export async function generateStaticParams(): Promise<PageParams[]> {
+  const config = await getConfig();
+
+  return config.questionnaires.flatMap((q) =>
+    q.questions.map((_, index) => ({
+      id: q.id,
+      questionNumber: (index + 1).toString(),
+    })),
+  );
+}
+
 interface RawPageProps {
-  params: Promise<{
-    id: string;
-    questionNumber: string;
-  }>;
+  params: Promise<PageParams>;
 }
 
 const paramsSchema = z.object({

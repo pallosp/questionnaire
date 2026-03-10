@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "export": "NEXT_EXPORT=true next build",
+    "kill": "lsof -ti:3000 | xargs kill -9",
     "lint": "eslint && stylelint 'src/**/*.css'",
     "lint:fix": "eslint --fix && stylelint 'src/**/*.css' --fix",
     "format": "prettier --write '**/*.{ts,tsx,mjs,md,css}'",
