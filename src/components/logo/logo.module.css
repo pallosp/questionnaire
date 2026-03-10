@@ -1,5 +1,10 @@
+.link {
+  display: block;
+  width: fit-content;
+  margin-bottom: var(--space-3xl-fixed);
+}
+
 .logo {
   width: var(--logo-width);
   height: var(--logo-height);
-  margin-bottom: var(--space-3xl-fixed);
 }
