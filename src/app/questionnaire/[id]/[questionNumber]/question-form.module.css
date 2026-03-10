@@ -23,7 +23,7 @@
 .follow-up {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-sm-fixed);
 
   margin-bottom: var(--space-xl);
   border: none;
