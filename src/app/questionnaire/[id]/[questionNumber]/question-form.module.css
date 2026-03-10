@@ -5,6 +5,11 @@
 }
 
 .top-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+
   max-width: calc(10 * (var(--icon-button-size) + var(--space-xs-fixed)));
 }
 
@@ -35,10 +40,7 @@
 
 .bottom-actions {
   display: flex;
-  flex: 1;
   gap: var(--space-xs-fixed);
-  align-items: flex-end;
   justify-content: flex-end;
-
-  padding-top: var(--space-md);
+  width: 100%;
 }
