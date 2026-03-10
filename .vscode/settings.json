@@ -1,0 +1,6 @@
+{
+  // Requires the Stylelint extension
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": "explicit"
+  }
+}

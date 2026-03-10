@@ -1,0 +1,4 @@
+set -o errexit
+
+npm test
+npx lint-staged
