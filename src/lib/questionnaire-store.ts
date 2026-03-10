@@ -17,10 +17,10 @@ export interface QuestionnaireState {
   /** Whether the state has been loaded from storage */
   isLoaded: boolean;
 
-  /** questionnaireId -> { questionNumber -> Answer } */
+  /** questionnaireId -> { questionIndex -> Answer } */
   savedAnswers: Record<string, Record<number, Answer>>;
 
-  /** Draft answers for current questionnaire */
+  /** Draft answers for current questionnaire (0-indexed) */
   draftAnswers: Record<number, Answer>;
 
   /** ID of the currently active questionnaire */
@@ -31,7 +31,7 @@ export interface QuestionnaireState {
     start: (questionnaireId: string) => void;
 
     /** Sets or updates an answer. */
-    setAnswer: (questionNumber: number, answer: Answer) => void;
+    setAnswer: (questionIndex: number, answer: Answer) => void;
 
     /** Saves the draft answers. */
     saveDraft: () => void;
@@ -49,8 +49,7 @@ const isCompleteHelper = (
   answers: Record<number, Answer>,
 ): boolean => {
   return config.questions.every((q, index) => {
-    const questionNumber = index + 1;
-    const answer = answers[questionNumber];
+    const answer = answers[index];
     if (!answer) return false;
 
     const needsFollowUp = needsFollowUpQuestion(q.validation, answer.rating);
@@ -80,11 +79,11 @@ export const stateImpl: StateCreator<QuestionnaireState> = (set, get) => ({
       });
     },
 
-    setAnswer: (questionNumber: number, answer: Answer) => {
+    setAnswer: (questionIndex: number, answer: Answer) => {
       set((state) => ({
         draftAnswers: {
           ...state.draftAnswers,
-          [questionNumber]: answer,
+          [questionIndex]: answer,
         },
       }));
     },
@@ -151,12 +150,12 @@ export const useIsStateLoaded = (): boolean =>
 
 export const useAnswer = (
   questionnaireId: string,
-  questionNumber: number,
+  questionIndex: number,
 ): Answer | undefined =>
   useQuestionnaireStore((state) =>
     state.draftId === questionnaireId
-      ? state.draftAnswers[questionNumber]
-      : state.savedAnswers[questionnaireId]?.[questionNumber],
+      ? state.draftAnswers[questionIndex]
+      : state.savedAnswers[questionnaireId]?.[questionIndex],
   );
 
 /** @internal - test only */
@@ -201,8 +200,8 @@ export const useAverageRating = (questionnaireId: string): number =>
 
     let total = 0,
       count = 0;
-    for (const qNum in answers) {
-      total += answers[qNum].rating;
+    for (const index in answers) {
+      total += answers[index].rating;
       count++;
     }
     return count > 0 ? total / count : 0;

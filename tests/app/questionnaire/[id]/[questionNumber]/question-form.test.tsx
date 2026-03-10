@@ -35,11 +35,11 @@ describe('QuestionForm', () => {
   const renderForm = ({
     questions,
     isLast = false,
-    questionNumber = 1,
+    questionIndex = 0,
   }: {
     questions: Question[];
     isLast?: boolean;
-    questionNumber?: number;
+    questionIndex?: number;
   }) => {
     const questionnaire: QuestionnaireConfig = {
       id: 'my_quiz',
@@ -53,7 +53,7 @@ describe('QuestionForm', () => {
     render(
       <QuestionForm
         questionnaire={questionnaire}
-        questionNumber={questionNumber}
+        questionIndex={questionIndex}
         supTitle=""
         nextUrl={isLast ? '/results' : '/next-question'}
         isLast={isLast}
@@ -119,7 +119,7 @@ describe('QuestionForm', () => {
         { question: 'Q2', validation: '', 'follow-up-options': [] },
       ],
       isLast: true,
-      questionNumber: 2,
+      questionIndex: 1,
     });
 
     expect(getFinishButton()).toBeInTheDocument();
@@ -131,7 +131,7 @@ describe('QuestionForm', () => {
     const questions = [
       { question: 'Q1', validation: '', 'follow-up-options': [] },
     ];
-    renderForm({ questions, questionNumber: 1, isLast: true });
+    renderForm({ questions, questionIndex: 0, isLast: true });
 
     await user.click(screen.getByLabelText('Rate 5'));
     await user.click(getFinishButton());
@@ -143,7 +143,7 @@ describe('QuestionForm', () => {
     const state = useQuestionnaireStore.getState();
     expect(state.draftId).toBeUndefined();
     expect(state.draftAnswers).toEqual({});
-    expect(state.savedAnswers['my_quiz'][1].rating).toBe(5);
+    expect(state.savedAnswers['my_quiz'][0].rating).toBe(5);
   });
 
   test('finishing the questionnaire when incomplete', async () => {
@@ -151,7 +151,7 @@ describe('QuestionForm', () => {
       { question: 'Q1', validation: '', 'follow-up-options': [] },
       { question: 'Q2', validation: '', 'follow-up-options': [] },
     ];
-    renderForm({ questions, questionNumber: 2, isLast: true });
+    renderForm({ questions, questionIndex: 1, isLast: true });
 
     // Only answer Question 2 (user may skip there by editing the URL)
     await user.click(screen.getByLabelText('Rate 5'));
@@ -167,6 +167,6 @@ describe('QuestionForm', () => {
     const state = useQuestionnaireStore.getState();
     expect(state.draftId).toBeUndefined();
     expect(state.draftAnswers).toEqual({});
-    expect(state.savedAnswers['my_quiz']).toEqual({ 2: { rating: 5 } });
+    expect(state.savedAnswers['my_quiz']).toEqual({ 1: { rating: 5 } });
   });
 });

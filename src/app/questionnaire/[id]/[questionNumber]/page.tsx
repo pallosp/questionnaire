@@ -23,11 +23,26 @@ const paramsSchema = z.object({
   questionNumber: z.coerce.number().int().min(1),
 });
 
-interface QuestionContext {
-  questionnaire: QuestionnaireConfig;
+class QuestionContext {
+  constructor(
+    public readonly questionnaire: QuestionnaireConfig,
+    // 0-based question index
+    public readonly questionIndex: number,
+  ) {}
 
-  /** Question number in the URL, starting with 1 */
-  questionNumber: number;
+  /** 1-based question number for rendering */
+  get questionNumber(): string {
+    return (this.questionIndex + 1).toString();
+  }
+
+  /** 1-based number of the next question for URL generation */
+  get nextQuestionNumber(): string {
+    return (this.questionIndex + 2).toString();
+  }
+
+  get numQuestions(): number {
+    return this.questionnaire.questions.length;
+  }
 }
 
 function getQuestionContext(
@@ -40,15 +55,13 @@ function getQuestionContext(
   }
 
   const { id, questionNumber } = result.data;
+  const questionIndex = questionNumber - 1;
   const questionnaire = config.questionnaires.find((q) => q.id === id);
-  if (!questionnaire || questionNumber > questionnaire.questions.length) {
+  if (!questionnaire || questionIndex >= questionnaire.questions.length) {
     return null;
   }
 
-  return {
-    questionnaire,
-    questionNumber,
-  };
+  return new QuestionContext(questionnaire, questionIndex);
 }
 
 export async function generateMetadata({
@@ -78,14 +91,14 @@ export default async function QuestionPage({ params }: RawPageProps) {
 
   // TODO: Consider using next-intl for formatting strings.
   const supTitle = config.questionnaire['sup-title']
-    .replace('{current}', context.questionNumber.toString())
-    .replace('{total}', context.questionnaire.questions.length.toString());
+    .replace('{current}', context.questionNumber)
+    .replace('{total}', context.numQuestions.toString());
 
   const isLast =
-    context.questionNumber === context.questionnaire.questions.length;
+    context.questionIndex === context.questionnaire.questions.length - 1;
   const nextUrl = isLast
     ? '/results'
-    : `/questionnaire/${context.questionnaire.id}/${context.questionNumber + 1}`;
+    : `/questionnaire/${context.questionnaire.id}/${context.nextQuestionNumber}`;
 
   return (
     <>
@@ -97,7 +110,7 @@ export default async function QuestionPage({ params }: RawPageProps) {
       <main className={styles.form}>
         <QuestionForm
           questionnaire={context.questionnaire}
-          questionNumber={context.questionNumber}
+          questionIndex={context.questionIndex}
           supTitle={supTitle}
           nextUrl={nextUrl}
           isLast={isLast}

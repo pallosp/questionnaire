@@ -110,7 +110,7 @@ const QuitAndSaveButton = () => {
 
 export interface QuestionFormProps {
   questionnaire: QuestionnaireConfig;
-  questionNumber: number;
+  questionIndex: number;
   supTitle: string;
   nextUrl: string;
   isLast: boolean;
@@ -159,17 +159,16 @@ const FollowUpSection = ({
 
 export const QuestionForm = ({
   questionnaire: config,
-  questionNumber,
+  questionIndex,
   supTitle,
   nextUrl,
   isLast,
 }: QuestionFormProps) => {
   const { start, setAnswer } = useQuestionnaireActions();
-  const answer = useAnswer(config.id, questionNumber);
+  const answer = useAnswer(config.id, questionIndex);
 
   const rating = answer?.rating;
   const followUpSelection = answer?.followUpSelection;
-  const questionIndex = questionNumber - 1;
   const question = config.questions[questionIndex];
 
   const showFollowUp = needsFollowUpQuestion(question.validation, rating);
@@ -182,7 +181,7 @@ export const QuestionForm = ({
   }, [start, config.id]);
 
   const handleRatingChange = (value: number) => {
-    setAnswer(questionNumber, {
+    setAnswer(questionIndex, {
       rating: value,
       followUpSelection: needsFollowUpQuestion(question.validation, value)
         ? followUpSelection
@@ -192,7 +191,7 @@ export const QuestionForm = ({
 
   const handleFollowUpChange = (value: string) => {
     if (rating !== undefined) {
-      setAnswer(questionNumber, {
+      setAnswer(questionIndex, {
         rating,
         followUpSelection: Number(value),
       });

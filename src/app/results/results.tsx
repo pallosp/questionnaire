@@ -64,12 +64,12 @@ function AnswerBlock({ rating, selectedFollowUp }: AnswerBlockProps) {
 }
 
 interface QuestionViewProps {
-  questionNumber: number;
+  questionIndex: number;
   question: Question;
   answer: Answer;
 }
 
-function QuestionView({ questionNumber, question, answer }: QuestionViewProps) {
+function QuestionView({ questionIndex, question, answer }: QuestionViewProps) {
   const followUpOption =
     answer.followUpSelection !== undefined
       ? question['follow-up-options']?.[answer.followUpSelection]
@@ -78,7 +78,7 @@ function QuestionView({ questionNumber, question, answer }: QuestionViewProps) {
   return (
     <div className={styles.question}>
       <p className={`${styles['question-number']} text-body-sm`}>
-        Question {questionNumber}
+        Question {questionIndex + 1}
       </p>
       <p className={`${styles['question-text']} text-title-xl`}>
         {question.question}
@@ -133,9 +133,9 @@ function QuestionnaireResults({ questionnaire }: QuestionnaireResultsProps) {
       {questionnaire.questions.map((question, index) => (
         <QuestionView
           key={index}
-          questionNumber={index + 1}
+          questionIndex={index}
           question={question}
-          answer={answers[index + 1]}
+          answer={answers[index]}
         />
       ))}
     </section>
