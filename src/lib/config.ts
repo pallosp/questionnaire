@@ -1,6 +1,7 @@
 import { Config } from '@/types/config';
 
-const CONFIG_URL = 'http://localhost:3000/api/test-config.json';
+const CONFIG_URL =
+  process.env.CONFIG_URL ?? 'http://localhost:3000/api/test-config.json';
 const CACHE_TIMEOUT_SEC = 300;
 
 export async function getConfig(): Promise<Config> {

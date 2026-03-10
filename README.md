@@ -67,6 +67,12 @@ Install dependencies:
 npm install
 ```
 
+Optionally, copy the example environment file:
+
+```bash
+cp .env.example .env
+```
+
 Start the development server:
 
 ```bash
