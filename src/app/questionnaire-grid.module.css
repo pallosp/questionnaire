@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 
-  /* TODO: fix the gap, which grows >24px on large screens */
+  /* TODO: Fix the gap, which grows >24px on large screens. */
   gap: var(--space-md);
   justify-content: start;
 

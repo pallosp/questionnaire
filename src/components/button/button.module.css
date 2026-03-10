@@ -39,8 +39,11 @@
 .small {
   gap: var(--space-xs);
 
+  /* TODO: Are the additional button sizes in the Results mocks intentional? */
   height: var(--button-height-sm);
   padding: 0 var(--space-md);
+
+  /* TODO: Is the button's border-radius supposed to be responsive? */
   border-radius: 4px;
 
   font-size: var(--font-size-sm);

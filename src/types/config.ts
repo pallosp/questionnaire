@@ -37,13 +37,12 @@ export interface QuestionnairePageConfig {
   'sup-title': string;
   description: string;
   results: ResultsConfig;
-  // TODO: This should go to the root config
+  // TODO: This should go to the root config.
   footer: FooterConfig;
 }
 
 export interface Config {
   questionnaires: QuestionnaireConfig[];
   homepage: HomepageConfig;
-  // TODO: Rename to 'questionnaire-page'
   questionnaire: QuestionnairePageConfig;
 }
