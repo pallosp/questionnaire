@@ -33,15 +33,15 @@ export function needsFollowUpQuestion(
   }
 
   if (condition.startsWith('>=')) {
-    return score >= +condition.substring(2);
+    return score >= Number(condition.substring(2));
   } else if (condition.startsWith('>')) {
-    return score > +condition.substring(1);
+    return score > Number(condition.substring(1));
   } else if (condition.startsWith('<=')) {
-    return score <= +condition.substring(2);
+    return score <= Number(condition.substring(2));
   } else if (condition.startsWith('<')) {
-    return score < +condition.substring(1);
+    return score < Number(condition.substring(1));
   } else if (condition.startsWith('=')) {
-    return score === +condition.substring(1);
+    return score === Number(condition.substring(1));
   }
 
   return false;
