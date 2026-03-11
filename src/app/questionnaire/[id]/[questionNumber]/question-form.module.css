@@ -11,6 +11,10 @@
   justify-content: center;
 
   max-width: calc(10 * (var(--icon-button-size) + var(--space-xs-fixed)));
+
+  @media (width < 768px) {
+    margin-bottom: var(--space-3xl-fixed);
+  }
 }
 
 .sup-title {
