@@ -41,6 +41,25 @@ const sansation = localFont({
   variable: '--font-sansation',
 });
 
+function MaterialIconLoader() {
+  const icons = ['keyboard_double_arrow_right', 'list_alt_check'];
+
+  return (
+    <>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="anonymous"
+      />
+      <link
+        rel="stylesheet"
+        href={`https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=${icons.join(',')}&display=block`}
+      />
+    </>
+  );
+}
+
 export const metadata: Metadata = {
   title: 'Profession questionnaire',
 };
@@ -80,7 +99,10 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <link rel="icon" href={`${BASE_PATH}/images/logo-black.svg`} />
+      <head>
+        <MaterialIconLoader />
+        <link rel="icon" href={`${BASE_PATH}/images/logo-black.svg`} />
+      </head>
       <body className={`${ibmPlexSerif.variable} ${sansation.variable}`}>
         <div className={styles.layout}>
           <HeaderBlock />
