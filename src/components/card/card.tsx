@@ -7,7 +7,7 @@ interface FooterIconProps {
 }
 
 const FooterIcon = ({ name }: FooterIconProps) => (
-  <div className={styles['footer-icon']}>
+  <div className={styles['footer-icon']} aria-hidden="true">
     <span className="material-symbols-outlined">{name}</span>
   </div>
 );

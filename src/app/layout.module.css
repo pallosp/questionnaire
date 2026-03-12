@@ -47,6 +47,13 @@
   }
 
   & .links {
+    display: flex;
+    list-style: none;
+
+    & li:not(:last-child)::after {
+      content: '\00a0|\00a0';
+    }
+
     & a:hover {
       text-decoration: underline;
     }

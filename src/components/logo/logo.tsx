@@ -14,7 +14,7 @@ export function Logo({ variant }: LogoProps) {
     <Link className={styles.link} href="/">
       <Image
         src={`${BASE_PATH}/images/logo-${variant}.svg`}
-        alt="Logo"
+        alt="Logo - Home"
         className={styles.logo}
         width={60}
         height={78}

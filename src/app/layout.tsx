@@ -65,19 +65,18 @@ export const metadata: Metadata = {
 };
 
 function HeaderBlock() {
-  return <div className={styles['header-block']} />;
+  return <div className={styles['header-block']} aria-hidden="true" />;
 }
 
 function FooterLinks({ links }: { links: FooterLink[] }) {
   return (
-    <div className={styles.links}>
+    <ul className={styles.links}>
       {links.map((link, index) => (
-        <span key={index}>
-          {index > 0 && ' | '}
+        <li key={index}>
           <Link href={link.url}>{link.name}</Link>
-        </span>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
