@@ -12,12 +12,12 @@ import styles from './layout.module.css';
 const ibmPlexSerif = localFont({
   src: [
     {
-      path: '../../public/fonts/IBM_Plex_Serif/IBMPlexSerif-Regular.ttf',
+      path: '../assets/fonts/IBM_Plex_Serif/IBMPlexSerif-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/IBM_Plex_Serif/IBMPlexSerif-SemiBold.ttf',
+      path: '../assets/fonts/IBM_Plex_Serif/IBMPlexSerif-SemiBold.ttf',
       weight: '600',
       style: 'normal',
     },
@@ -28,12 +28,12 @@ const ibmPlexSerif = localFont({
 const sansation = localFont({
   src: [
     {
-      path: '../../public/fonts/Sansation/Sansation-Regular.ttf',
+      path: '../assets/fonts/Sansation/Sansation-Regular.ttf',
       weight: '400',
       style: 'normal',
     },
     {
-      path: '../../public/fonts/Sansation/Sansation-Bold.ttf',
+      path: '../assets/fonts/Sansation/Sansation-Bold.ttf',
       weight: '700',
       style: 'normal',
     },
