@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 import { Button } from '@/components/button/button';
 import { RadioButton } from '@/components/radio/radio-button';
-import { needsFollowUpQuestion } from '@/lib/config';
+import { needsFollowUpQuestion } from '@/lib/config-utils';
 import {
   useAnswer,
   useIsComplete,

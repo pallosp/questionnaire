@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { BASE_PATH } from '@/lib/config';
+import { BASE_PATH } from '@/lib/config-utils';
 
 import styles from './logo.module.css';
 

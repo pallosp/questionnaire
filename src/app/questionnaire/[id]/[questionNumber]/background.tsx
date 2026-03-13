@@ -1,4 +1,4 @@
-import { BASE_PATH } from '@/lib/config';
+import { BASE_PATH } from '@/lib/config-utils';
 
 import styles from './background.module.css';
 

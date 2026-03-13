@@ -1,4 +1,4 @@
-import { needsFollowUpQuestion } from '@/lib/config';
+import { needsFollowUpQuestion } from '@/lib/config-utils';
 
 describe('needsFollowUpQuestion', () => {
   test('undefined condition', () => {

@@ -5,7 +5,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useShallow } from 'zustand/shallow';
 
-import { needsFollowUpQuestion } from '@/lib/config';
+import { needsFollowUpQuestion } from '@/lib/config-utils';
 import { QuestionnaireConfig } from '@/types/config';
 
 export interface Answer {

@@ -3,8 +3,10 @@ import './globals.css';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
-import { BASE_PATH, getConfig } from '@/lib/config';
+import { getConfig } from '@/lib/config';
+import { BASE_PATH } from '@/lib/config-utils';
 import { FooterConfig, FooterLink } from '@/types/config';
 
 import styles from './layout.module.css';
@@ -105,7 +107,9 @@ export default async function RootLayout({
       <body className={`${ibmPlexSerif.variable} ${sansation.variable}`}>
         <div className={styles.layout}>
           <HeaderBlock />
-          <div className={styles['page-container']}>{children}</div>
+          <div className={styles['page-container']}>
+            <Suspense>{children}</Suspense>
+          </div>
           <Footer
             copyright={config.questionnaire.footer.copyright}
             links={config.questionnaire.footer.links}

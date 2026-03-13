@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
     unoptimized: isExport,
   },
   reactCompiler: true,
+
+  // Partial prerendering:
+  // https://youtu.be/myjrQS_7zNk?t=853
+  cacheComponents: true,
 };
 
 export default nextConfig;
